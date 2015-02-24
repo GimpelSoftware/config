@@ -1,0 +1,47 @@
+/* Date Stamp */ -d"_lint_env_cb_lnt=env-cb.lnt modified 1-Sep-1999"
+/* To document usage use: -message( "Using " _lint_env_cb_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-cb.lnt:  environment parameters for the Borland C++ Builder
+
+    Select "Tools" and then select "Configure Tools ...".
+    This will open a "Tool Options" dialog from which you can select
+    "Add...".  This yields a "Tool Properties" dialog which will
+    require you to add the following four entries:
+
+    Title:  &Lint
+    (the '&' allows selection via 'L' from the Tool menu).
+
+    Program:  C:\LINT\LINT-NT.EXE
+    (modify the path as appropriate)
+
+    Working dir:
+    (when left blank, the default becomes $PATH($EDNAME))
+
+    Command Line:  $SAVE -u -v -iC:\LINT std env-cb $EDNAME
+
+    This command line will save the current file ($SAVE)
+    After specifying unit checkout (-u) and no verbosity (-v) and
+    include directories (-i) there appears 'std' specifying the
+    file std.lnt.  This is the same as appears in your lin.bat file.
+    The 'env-cb' specifies the file you are currently reading;
+    finally, the being-edited file appears as $EDNAME.
+
+    After you close things up and return to the main menu, you can
+    select the 'Tool' menu and your new entry should be there.
+
+    Note that this method does not allow you to automatically sequence
+    through messages.  This ability was available in previous Borland
+    Development environments but we (Gimpel Software) have no idea
+    how this would be done with C++ Builder.
+ */
+
++e900       // always produce at least one line of output
+-t4         // Presume that tabs are every 4 stops
++fpa        // pause before closing the message window.

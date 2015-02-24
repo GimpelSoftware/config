@@ -1,0 +1,135 @@
+/* Date Stamp */ -d"_lint_co_kc166_lnt=co-kc166.lnt modified 14-Jan-2004"
+/* To document usage use: -message( "Using " _lint_co_kc166_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-kc166.lnt
+//    Compiler Options for the Keil C166 Compiler Version 4
+//
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-kc166.lnt  source-file(s)
+//
+//    You may contact Keil Software, Inc. at:
+//
+//    Phone:  972-312-1107  Fax:  972-312-1159
+//    Sales:  800-348-8051
+//    www.keil.com
+
+-hsb_3           // formatting options required for MicroVision IDE
+-format="*** LINT: %(%f(%l) %)%t %n: %m"
+-width(0,10)     // Don't break lines
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
++v
+
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
++rw(_bit)                 // activate the _bit datatype
++rw(bool)                 // activate the bool datatype
+-dbit=bool                // #define bit as bool
++rw(_gobble)              // activate the _gobble keyword
+                          // causes _gobble token to be both ignored
+-dinterrupt=_gobble       // defines interrupt to be a _gobble
+-dusing=_gobble           // defines using to be a _gobble
++rw(_ignore_init)         // activate this keyword
++rw(__declspec)           // activate this MS keyword
+-d"sbit=__declspec(selectany) bool"     // 'selectany' has the effect of ...
+-d"sfr=__declspec(selectany) unsigned int"  // allowing multiple definitions
+
+-e34    // ignore complaints about non-constant initializers.
+        // this is because of things like:
+        // sbit  ResetClock = P3^3;
+-e430   // ignore complaints about @ mask for function definitions.
+-e557   // ignore complaints about not recognizing printf formats
+-sp4    // size of pointer is 4 bytes
+
++rw(sdata,bdata,idata,huge,xhuge)
++rw(tiny,small,compact,medium,large)
+//-dlarge=far     // treat large as far
+//-dsmall=near    // treat small as near
++d__MODEL__=0     // set memory model to small
++d__C166__=260    // set C166 compiler version to 2.60
++d__DATE__="09/05/95" // set C166 compiler date macro
++d__TIME__="11:55:00" // set C166 compiler time macro
++d__FILE__="MYFILE.C" // set C166 compiler file macro
++d__LINE__=100        // set C166 compiler line macro
++d__STDC__=1          // set C166 compiler STDC macro
+
+    // But since these types take initializers, objects like those
+    // below are considered to be multiply defined if they appear in
+    // more than one module.  Ergo we suppress 14 - Multiply-defined.
+    // Oh what a tangled web we weave ...
+-esym(14,ADCIC,ADCON,ADDAT,ADEIC,ADST,ADBSY,ADCIE,ADCIR,ADEIE,ADEIR)
+-esym(14,CC0,CC0IC,CC1,CC1IC,CC2,CC2IC,CC3,CC3IC,CC4,CC4IC,CC5,CC5IC)
+-esym(14,CC6,CC6IC,CC7,CC7IC,CC8,CC8IC,CC9,CC9IC,CC10,CC10IC,CC11,CC11IC)
+-esym(14,CC12,CC12IC,CC13,CC13IC,CC14,CC14IC,CC15,CC15IC,CCM0,CCM1,CCM2)
+-esym(14,CCM3,T0,T01CON,T0IC,T0REL,T1,T1IC,T1REL,CC0IR,CC0IE,CC1IR,CC1IE)
+-esym(14,CC2IR,CC2IE,CC3IR,CC3IE,CC4IR,CC4IE,CC5IR,CC5IE,CC6IR,CC6IE,CC7IR)
+-esym(14,CC7IE,CC8IR,CC8IE,CC9IR,CC9IE,CC10IR,CC10IE,CC11IR,CC11IE,CC12IR)
+-esym(14,CC12IE,CC13IR,CC13IE,CC14IR,CC14IE,CC15IR,CC15IE,ACC0,ACC1,ACC2)
+-esym(14,ACC3,ACC4,ACC5,ACC6,ACC7,ACC8,ACC9,ACC10,ACC11,ACC12,ACC13,ACC14)
+-esym(14,ACC15,T0IE,T0IR,T0M,T0R,T1IE,T1IR,T1M,T1R,CP,CSP,DPP0,DPP1,DPP2)
+-esym(14,DPP3,MDC,MDH,MDL,ONES,PSW,SP,STKOV,STKUN,SYSCON,TFR,ZEROS,BUSCON1)
+-esym(14,ADDRSEL1,RWDC,MTTC,CLKEN,BYTDIS,BUSACT,SGTDIS,RDYEN,MDRIU,MULIP)
+-esym(14,USR0,HLDEN,IEN,RWDC1,MTTC1,ALECTL1,BUSACT1,RDYEN1,ILLBUS,ILLINA)
+-esym(14,ILLOPA,PRTFLT,UNDOPC,STKUF,STKOF,NMI,PECC0,PECC1,PECC2,PECC3,PECC4)
+-esym(14,PECC5,PECC6,PECC7,DP0,DP1,DP2,DP3,DP4,P0,P1,P2,P3,P4,P5,A16,A17)
+-esym(14,CLKOUT,S0BG,S0CON,S0EIC,S0RBUF,S0RIC,S0TBIC,S0TBUF,S0TIC,S1BG,S1CON,S1EIC)
+-esym(14,S1RBUF,S1RIC,S1TBUF,S1TIC,S0STP,S0REN,S0PEN,S0FEN,S0OEN,S0PE,S0FE)
+-esym(14,S0OE,S0BRS,S0LB,S0R,S0TIE,S0TIR,S0RIE,S0RIR,S0EIE,S0EIR,S1STP,S1REN)
+-esym(14,S1PEN,S1FEN,S1OEN,S1PE,S1FE,S1OE,S1BRS,S1LB,S1R,S1TIE,S1TIR,S1RIE)
+-esym(14,S1RIR,S1EIE,S1EIR,CAPREL,CRIC,T2,T2CON,T2IC,T3,T3CON,T3IC,T4,T4CON)
+-esym(14,T4IC,T5,T5CON,T5IC,T6,T6CON,T6IC,WDT,WDTCON,CRIE,CRIR,T2R,T2UD,T2IE)
+-esym(14,T2IR,T3R,T3UD,T3UDE,T3OE,T3OTL,T3IE,T3IR,T4R,T4UD,T4IE,T4IR,T5R,T5M)
+-esym(14,T5UD,T5CLR,T5SC,T5IE,T5IR,T6R,T6UD,T6OE,T6OTL,T6SR,T6IE,T6IR,T0IN)
+-esym(14,T2IN,T3IN,T4IN,T3EUD,T3OUT,CAPIN,T6OUT,WDTIN,WDTR,N,C,V,Z,E)
+// 80C167 and 80C165 SFR's
+-esym(14,ADDAT2,ADWR,ADCIN,ADCRQ,CC16,CC16IC,CC17,CC17IC,CC18,CC18IC,CC19)
+-esym(14,CC19IC,CC20,CC20IC,CC21,CC21IC,CC22,CC22IC,CC23,CC23IC,CC24,CC24IC)
+-esym(14,CC25,CC25IC,CC26,CC26IC,CC27,CC27IC,CC28,CC28IC,CC29,CC29IC,CC30)
+-esym(14,CC30IC,CC31,CC31IC,CCM4,CCM5,CCM6,CCM7,T7,T78CON,T7IC,T7REL,T8,T8IC)
+-esym(14,T8REL,CC16IR,CC16IE,CC17IR,CC17IE,CC18IR,CC18IE,CC19IR,CC19IE,CC20IR)
+-esym(14,CC20IE,CC21IR,CC21IE,CC22IR,CC22IE,CC23IR,CC23IE,CC24IR,CC24IE)
+-esym(14,CC25IR,CC25IE,CC26IR,CC26IE,CC27IR,CC27IE,CC28IR,CC28IE,CC29IR)
+-esym(14,CC29IE,CC30IR,CC30IE,CC31IR,CC31IE,ACC16,ACC17,ACC18,ACC19,ACC20)
+-esym(14,ACC21,ACC22,ACC23,ACC24,ACC25,ACC26,ACC27,ACC28,ACC29,ACC30,ACC31)
+-esym(14,T7IE,T7IR,T7M,T7R,T8IE,T8IR,T8M,T8R,BUSCON0,BUSCON2,BUSCON3,BUSCON4)
+-esym(14,ADDRSEL2,ADDRSEL3,ADDRSEL4,WRCFG,ROMEN,SGTEN,ROMS1,RWDC0,MTTC0)
+-esym(14,ALECTL0,BUSACT0,RDYEN0,CSREN1,CSWEN1,RWDC2,MTTC2,ALECTL2,BUSACT2)
+-esym(14,RDYEN2,CSREN2,CSWEN2,RWDC3,MTTC3,ALECTL3,BUSACT3,RDYEN3,CSREN3)
+-esym(14,CSWEN3,RWDC4,MTTC4,ALECTL4,BUSACT4,RDYEN4,CSREN4,CSWEN4,EXICON)
+-esym(14,DP0L,DP0H,DP1L,DP1H,DP6,DP7,DP8,P0L,P0H,P1L,P1H,P6,P7,P8,ODP2,ODP3)
+-esym(14,ODP6,ODP7,ODP8,XP0IC,XP1IC,XP2IC,XP3IC,RP0H,S0ODD,S0TBIE,S0TBIR)
+-esym(14,SSCTIC,SSCRIC,SSCEIC,SSCTB,SSCRB,SSCBR,SSCCON,SSCHB,SSCPH,SSCP0)
+-esym(14,SSCTE,SSCTEN,SSCRE,SSCREN,SSCPE,SSCPEN,SSCBE,SSCBEN,SSCBSY,SSCMS)
+-esym(14,SSCEN,SSCTIR,SSCTIE,SSCRIR,SSCRIE,SSCEIR,SSCEIE,T2UDE,T4UDE,T5UDE)
+-esym(14,T6UDE,T5IN,T6IN,T2EUD,T4EUD,T5EUD,T6EUD,PWMCON0,PWMCON1,PW0,PW1,PW2)
+-esym(14,PW3,PWMIC,PT0,PT1,PT2,PT3,PP0,PP1,PP2,PP3,PTR0,PTR1,PTR2,PTR3,PTI0)
+-esym(14,PTI1,PTI2,PTI3,PIE0,PIE1,PIE2,PIE3,PIR0,PIR1,PIR2,PIR3,PEN0,PEN1)
+-esym(14,PEN2,PEN3,PM0,PM1,PM2,PM3,PB01,PS2,PS3,PWMIR,PWMIE)
+-esym(14,XP0IR,XP0IE,XP1IR,XP1IE,XP2IR,XP2IE,XP3IR,XP3IE)
+-esym(14,ISNC,RTCIE,RTCIR,PLLIE,PLLIR,SSCPO)
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,memcpy,memmove,memset,strncat,strncpy)
+-esym(534,printf,putchar,puts,scanf,sprintf,sscanf,strcat,strcpy)
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK

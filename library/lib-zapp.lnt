@@ -1,0 +1,26 @@
+/* Date Stamp */ -d"_lint_lib_zapp_lnt=lib-zapp.lnt modified 20-Jun-1996"
+/* To document usage use: -message( "Using " _lint_lib_zapp_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+//  lib-zapp.lnt
+//  Library Options file for Inmarks's zApp
+
+-elib(726)      // extraneous comma in enumdef.hpp
+-elib(1505)     // zDlist is inherited from zLink without access specifier
+-elib(1509)     // zPlink does not have a virtual destructor
+-elib(1510)     // zTextStream is a base class with no destructor
+-elib(601)      // type assumed int occurs frequently
+-elib(745)      // undefined function return value assumed int
+-elib(1724)     // non-const arguments can be passed to copy constructor
+
+// non-virtual destructors
+-esym(1512,zDrawObj,zSlist,zTimer,zRegion,zLink,zPListIter,zPlink,zPlist)
+
+-dZ_DB=1        // zApp debugging on (may be changed or remove)
+-dZ_NP=0        // zApp persistant objects on (may be changed or removed)

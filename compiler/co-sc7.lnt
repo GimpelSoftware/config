@@ -1,0 +1,75 @@
+/* Date Stamp */ -d"_lint_co_sc7_lnt=co-sc7.lnt modified 22-Sep-1997"
+/* To document usage use: -message( "Using " _lint_co_sc7_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-sc7.lnt
+//    Compiler Options for Symantec C++ 7.0
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-sc7.lnt  source-file(s)
+//
+
+
+
+	    // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(553)  // use of undefined preprocessor variables like #if __STDC__
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(761)  // suppress superseded message for size_t and wchar_t
+-elib(760)  // suppress message about multiple identical macro defs
+
+// these are for iostream.h
+-elib(1724) // argument to copy construct should be const ref
+-elib(1721) // unusual operator =() declaration
+-elib(1722) // assignment operator does not return ref
+-elib(1704) // private constructors
+-elib(1720) // assignment op has non-const parameter
+-elib(1735) // default parameter within virtual function
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(641)  // converting enum's to int
+
+// needed for windows.h
+-elib(514)           // unusual use of a boolean
+-elib(1717)          // several empty prototypes
+-esym(714,WinMain)   // WinMain is only indirectly referenced
+
+// suppression of errors within expansion of macros
+ -emacro(507,FP_OFF)   // inhibit loss of information message.
+--emacro(507,offsetof) // inhibit loss of info message in macro
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+ -emacro(792,assert)   // inhibit void cast of void message
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+			// 796 and 797 (out-of-bounds errors).
+
+// The following functions exhibit variable return modes.
+// That is, they may equally-usefully be called for a value
+// as called just for their effects.  Accordingly we inhibit
+// Warning 534 for these functions.
+// Feel free to add to or subtract from this list.
+-esym(534,close,creat,fclose,fflush,fprintf,fputc,wsprintf)
+-esym(534,_fputc,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+-esym(534,__assertfail)
+-function(exit,__assertfail)  // __assertfail() is like exit()
+
+// misc. suppression
+-e793       // inhibit 'ANSI limit reached'
+
+// reserved words
++rw(__interrupt,__near,__far,__huge,__fortran,__pascal,__cdecl,_export)
++rw(__import,__export,__ss,__handle,__iob,__asm,__fastcall,__stdcall)
+
+

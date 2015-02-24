@@ -1,0 +1,80 @@
+/* Date Stamp */ -d"_lint_co_diab_lnt=co-diab.lnt modified 6-May-2002"
+/* To document usage use: -message( "Using " _lint_co_diab_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+//    co-diab.lnt
+//    Compiler Options for the Diab Data 4.3 Compiler
+//
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-diab.lnt  source-file(s)
+//
+
+	     // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+
+-elib(652)   // suppress message about #define of earlier declared symbols
+-elib(762)   // suppress message about multiple identical declarations and
+-elib(760)   // suppress message about multiple identical macro defs
+-elib(537)   // repeated include file
+-elib(1034)  // gratuitious use of static inside iostream.inl
+
++rw(__inline__)   // activate the __inline__ keyword
+
+-esym(18,strstreambase::rdbuf)       // redeclared
+-esym(18,dptr)                       // redeclared
+-esym(18,dnan)                       // redeclared
+
+    -dm88k       // disable if appropriate
+
+/*  Enable the following as appropriate:
+
+    -dm88k
+    -d__m88k
+    -d__ppc
+    -d__m68k
+    -d__rce
+    -d__nec
+    -d__m32r
+    -d__mips
+    -d__mot68
+    -d_sparc
+    -d__sparc
+    -dsh
+    -d__sh
+    -d__STRICT_ANSI__
+ */
+
+-d__STL_NO_EXCEPTION_HEADER=  // undefine because we can't find #include <exception>
+
+//  The following options support assembly code in two different ways.
+//  1) __asm function definition whose body is in assembly code.
+//  2) __asm( "assembly statement" )
+//  asm can be substituted for __asm
+//  To support the dual nature of the keyword it is made into a
+//  function macro so that when not followed by a '(' it assumes its
+//  keyword meaning.
+
++rw(_ignore_init)       // active special reserve word to ignore ...
+                        // the initialization parts of a declaration ..
+                        // and in the case of function definitions the ...
+                        // function body.
+-dasm=_ignore_init      // supports the following function definition:
+                        // asm int f( int n ) { assembly-code }
+-d__asm=_ignore_init    // does the same for __asm
+-d_ignore_init()=       // supports the following form of assembly code:
+                        //       asm( "assembly statement" );
+-e123                   // suppress message 123 (macro defined with parens ...
+                        // is used without parens)
++rw(__packed__)         // ignore this keyword

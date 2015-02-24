@@ -1,0 +1,83 @@
+/* Date Stamp */ -d"_lint_co_cosm_lnt=co-cosm.lnt modified 24-Jun-2004"
+/* To document usage use: -message( "Using " _lint_co_cosm_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-cosm.lnt
+//    Compiler Options for Cosmic C compiler
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-cosm.lnt  source-file(s)
+//
+
+-ss2        // size of short is 2
+-si2        // size of int is 2
+-spN2       // size of near pointer is 2
+-spF4       // size of far pointer is 4
++fbu        // force bit fields to be unsigned
++fcu        // plain char is unsigned
++fep        // allow enum's in pre-processor statements
++f@m        // @ can be used as a modifier
++pragma(asm,off)    // #asm blocks ignored
++pragma(endasm,on)  // #endasm restores things
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(553)  // undefined pre-processor variables are regarded as
+            // 0 without complaint
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+// For non-ANSI compilers we suppress messages 515 and 516
+// for functions known to have variable argument lists.
+// For ANSI compilers, header files should take care of this.
+
+-esym(515,fprintf,printf,sprintf,fscanf,scanf,sscanf)
+-esym(516,fprintf,printf,sprintf,fscanf,scanf,sscanf)
+
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+			// 796 and 797 (out-of-bounds errors).
+
+//  @ usage.
+//  The following 3 options are intended to cope with various
+//  uses of the @ character:
+//  a) As an initializer,  e.g.
+//              volatile byte PORTA @ BASEADR + 1;
+//  b) As the initial character in a keyword,  e.g.,
+//              @far byte x;
+//  If there are @keywords other than those just below then they
+//  should be added to the list.
+
+--rw(bool)     // remove the preconceived notion of what bool means
++rw(far,near,interrupt,tiny,bool,inline,eeprom)  // reserved words that follow @.
+               // note: we ignore the @ in a decl specifier context
+               // so that these words show up as real reserved words
++fem           // Early Modifiers: so that we can say "far int x;" instead
+               //   of "int far x;"
+-e430          // suppress complaints about using @
+
+-dNOBUILTIN=1       // forces macros to be used in place of built-ins
+-esym(666,min,max)  // parameters appearing twice in macro expansion
+-header(co-cosm.h)	// include the header containing special function declarations

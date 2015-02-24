@@ -1,0 +1,117 @@
+/* Date Stamp */ -d"_lint_co_hc_lnt=co-hc.lnt modified 9-Feb-2000"
+/* To document usage use: -message( "Using " _lint_co_hc_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    Compiler Options for Metaware High C
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-hc.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-d_stdio_defs_included=0   // used in header files
+-d__1167=0                 // used in header files
+-d__HIGHC__=1              // used in header files
++rw(__declspec)
+        // We now support __declspec directly so that the following
+        // option is now commented out.  If trouble ensues you can
+        // once again disable __declspec through this option.
+        // -d__declspec()= // ignore this construct
+-d_declspec=__declspec  // the single '_' version is occasionally used
+--emacro(506,_MAXSTRING)   // constant value Boolean
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK
+-emacro(415,FP_SEG)  // access of out-of-bounds pointer
++rw(_to_semi)       // enable _to_semi -- ignores information
+                    //   up to and including a semi-colon.
+-d_pragma=_to_semi  // make _pragma equal to _to_semi.
+-dpragma=_to_semi   // make pragma equal to _to_semi.
+-d_packed=          // ignore _packed
++rw(_Far,_Near,_Pascal,_Fortran)   // Additional reserved words
+-d_CC()=        // ignore these constructs
+-elib(553)      // undefined preprocessor variables assumed 0
+-elib(726)      // extraneous comma within enum
+-elib(778)      // constant expression evaluates to 0
+-elib(43)       // vacuous type for variable
+-elib(140)      // allow early modifiers in library headers.
++ppw(c_include) // activate #c_include
+-d_MSDOS        // pre-defined variable
+-d_I386         // pre-defined variable
+-esym(745,_profile_start)
+-function(exit,_exit)   // _exit() is like exit()
+-d_near=   -d_far=        // can't yet handle _far char *,
+                          // we need char _far *
+-d_char_t=unsigned        // For High C, this is built-in
+
+-si4
+-sp4
+
+-emacro(734,putc)   // don't complain about items being too large.
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+                        // 796 and 797 (out-of-bounds errors).
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fflush,_flsbuf,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+-d_WCHAR_T_DEFINED   // avoid processing typedef
+
++fwc // assume wchar_t is built-in (this was added in version 3)
+     // but note, with this flag in place, we will balk at a
+     // typedef of wchar_t.
+
+-d_NA_H=1
+-d_NA_NAMES=0
+
+
+// The following options are required by most compilers to
+// noiselessly process iostream.h
+
+-elib(1717) //empty prototypes
+-elib(522) //function return value ignored
+-elib(1053) //prototypes cannot be distinguished
+-elib(1721) //unusual operator =() declaration
+-elib(1720) //assignment op has non-const parameter
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(641)  // converting enum's to int
+-elib(537)  // repeated include file (ios.h)
+-elib(1511) // member (rdbuf) hides nonvirtual member
+-elib(1712) // default constructor not defined for class
+-elib(1736) // redundant access specifier
+-esym(1702,operator<<,operator>>)  // both a member and an ordinary function
+
+// These functions return things that are frequently ignored.
+
+-esym(534,ostream::operator<<,istream::operator>>)
+
+// The following additional options seem to be needed.
+
+-fdc       // do not Distinguish plain Char as a unique type.
+           // i.e. char is either signed char or unsigned char
+-elib(747) //significant prototype coercion
+-elib(740) //unusual pointer casts
+-elib(1029) //default argument repeated -- can't dist. char, signed char
+-elib(1055) //call to rdbuf() questioned?
+-elib(1708,1709) // minor C/C++ declaration conflict

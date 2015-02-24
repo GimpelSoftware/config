@@ -1,0 +1,56 @@
+/* Date Stamp */ -d"_lint_env_mew_lnt=env-mew.lnt modified 23-Jan-2001"
+/* To document usage use: -message( "Using " _lint_env_mew_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-mew.lnt: environment parameters for American Cybernetic's Multi-Edit
+
+    If you are using Multi-Edit and you wish to invoke
+    PC-lint from that environment then do the following.
+
+    1.  From the Tools Menu choose "Customize ..."
+        The Customize ... Dialog Box appears
+    2.  Under the "Customize" tab Select "Filename Extensions"
+    3.  In the  "Filename Extension Setup" box, select "C CPP H" then
+	click "Edit" to get to the "Edit Filename Extension Setup" box.
+    4.  From here, select "Compiler/Program setup".
+    5.  Click "Insert" in the resulting box to get the program setup screen.
+        You will now be able to edit the fields of this box
+        to define an entry for PC-lint.  Enter data as apprpriate
+        to approximate the following (in our example, we assume
+	lint-nt.exe is your executable and is found in c:\lint\):
+
+	Description:    PC-lint (unit checkout)
+	Command:        C:\LINT\lint-nt.exe -IC:\LINT\ -u std.lnt env-mew.lnt <FILE>.<EXT>
+
+	Working directory:  Current
+	Program Type:    **** click on the square, then see precedure below
+	Exe Type:           Auto Detect
+	Show:               Normal
+	Options:            <your choice or leave blank>
+
+	**** Fill in the PC-lint setup screen as follows:
+               Type: PC-lint 75    (or whatever name you'd like to use)
+
+           under "Regular Expressions"
+               Search:   ^(<p>)\((<i>),<b0>(<i>)\):(.@)$
+               Replace:  /F=\0/L=\3/C=\4/M=\5
+               Extra:
+
+            Then hit "OK" and back your way out of all the screens.
+*/
+
+
++ffn           // Full File Names
+-haFs_3        // Message Height =3
+	       // Full file info
+-width(0)      //  don't break messages at any particular width
+-"format=%(%F(%l,%C):%) %t %n: %m"     //  Messages will contain
+                 //  file information (%F), the line number (%l), column number (%c),
+                 //  message type (%t), message number (%n) and message text (%m).
+

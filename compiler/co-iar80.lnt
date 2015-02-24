@@ -1,0 +1,60 @@
+/* Date Stamp */ -d"_lint_co_iar80_lnt=co-iar80.lnt modified 26-Jul-2001"
+/* To document usage use: -message( "Using " _lint_co_iar80_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+//    co-iar80.lnt
+//    Compiler Options for IAR C
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-iar80.lnt  source-file(s)
+//
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+            // (no warnings, just syntax errors).  Comment out if you
+            // are actually linting library headers.  This
+            // option makes obsolete options of the form -elib(axxx) where
+            // xxx >= 400 which may be retained for historical reasons.
+
+
++rw(_bit)                 // activate the bit datatype
++rw(_ignore_init)         // activate this keyword
+-d"bit=_ignore_init _bit"              // define bit
+-d"sfr=_ignore_init unsigned char"     // define sfr (nearest approximation)
++fcu    // flag, tells that char is unsigned.
+-ss2    // size of short        is 2 byte
+-si2    // size of int          is 2 byte
+-sl4    // size of long         is 4 byte
+-sf4    // size of float        is 4 byte
+-sd4    // size of double       is 4 byte
+-sld4   // size of long double  is 4 byte
+-spD3   // size of data pointer is 3 bytes
+
+
+//
+// EXTENDED KEYWORDS:
+//
++rw(xdata,pdata,data,bdata,idata,code)  // ignore these keywords
++rw(small,compact,large,alien)          // ignore these keywords
++rw(_to_brackets)                       // activate the _to_brackets keyword
+-dinterrupt=_to_brackets                // define interrupt keyword
++rw(_gobble)                            // activate the _gobble keyword
+                                        // causes _gobble token to be both ignored
+-dusing=_gobble                         // defines using to be a _gobble
+
+
+//
+// MISCELLANEOUS:
+//
++fba    // set bit addressability flag on
+-e34    // ignore complaints about non-constant initializers.
+        // this is because of things like:
+        // bit WS = PCON1.4;
+

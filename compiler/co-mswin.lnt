@@ -1,0 +1,72 @@
+/* Date Stamp */ -d"_lint_co_mswin_lnt=co-mswin.lnt modified 12-Sep-2007"
+/* To document usage use: -message( "Using " _lint_co_mswin_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-mswin.lnt
+//    Compiler Options for Microsoft C, C++ for Windows
+
+-cmsc
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-mswin.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(514)  // allow #if <boolean> | <boolean>
+        // +e934   report passing near auto pointers to other functions
+        // (enable 934 when you're writing DLL's)
+        // See Petzold, Windows 3.0, pp 897-902
+-printf(w2,wsprintf)   // complains if pointers to wsprintf are not far.
+-esym(14,pLocalHeap)   // variable defined in windows.h
+-e740   // remove 'suspicious cast' messages because these must be
+        // routinely done within Windows.
+-format=%(%f(%l)\s:\s%)%t\s%n:\s%m
+        // error format similar to MSC
+        // Note that %c can also be used to specify column
+-e46    // allows bit-fields to be other than int or unsigned
++fan    // allow anonymous unions
++fdi    // Use directory of the including file
+-fdh    // do not append a .h to header names
+-ffb    // do not establish a separate scope for declares within for clauses
+-esym(123,min,max)  // allows users to use min, max as variables
+-d_MSC_VER=700  // The version number of Microsoft C, for C6 make this 600
+                // For Visual C++ make it 800
+-u__STDC__      // Needed for C 7.00 to allow use of open, close, etc.
++rw(__inline)   // activate the __inline keyword
++ppw(import)    // activate #import
+-sld10          // sizeof(long double) is 10.
+-function(exit,_exit)   // _exit() is like exit()
+-function(exit,_assert)   // _assert() is like exit()
+-emacro(506,assert) // don't warn about constant value Boolean
+-emacro(734,putc)   // don't complain about items being too large.
+-emacro(740,FP_SEG,FP_OFF)  // unusual casts
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+			// 796 and 797 (out-of-bounds errors).
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fflush,_flsbuf,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,wsprintf,write)
+

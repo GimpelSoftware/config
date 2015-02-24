@@ -1,0 +1,53 @@
+/* Date Stamp */ -d"_lint_co_ht_lnt=co-ht.lnt modified 7-May-2001"
+/* To document usage use: -message( "Using " _lint_co_ht_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-ht.lnt
+//    Compiler Options for HI-TECH C
+
+-cht
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-ht.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(544)  // ignore information following #endif and #else
+-elib(553)  // undefined pre-processor variables are regarded as
+            // 0 without complaint
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,_flsbuf,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+//  The following options are required for embedded systems.
+//  (thru version 7.7).
+
+-e430               // Allow use of @
++ppw(asm)           // establish #asm as beginning of assembly
++ppw(endasm)        // establish #endasm to terminate.
+-dbit=_bit          // support the bit keyword by defining it
++rw(_bit)           // to be _bit.
++rw(bank1,bank2)    // additional reserved words

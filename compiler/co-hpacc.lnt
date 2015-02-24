@@ -1,0 +1,124 @@
+/* Date Stamp */ -d"_lint_co_hpacc_lnt=co-hpacc.lnt modified 15-Feb-2000"
+/* To document usage use: -message( "Using " _lint_co_hpacc_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+// co-hpaCC.lnt
+//
+// This file lists options for HP's ANSI C++ compiler "aCC".
+//
+// Adapted from co-hp.lnt by Nathan Meyers, Hewlett-Packard Company.
+//////////////////////////////////////////////////////////////////////////
+
+// The following options are specific to HP's C/C++ compilers
+
+// this causes ANSI sections of HP C standard header files to be used
+-d_HPUX_SOURCE
+
+// these are defined automatically by the HP C and C++ compilers
+-d__STDCPP__
+-d__hpux
+-d__hppa
+-d__unix
+
+// defined if compiling for PA-RISC 1.1 architecture; using +DA2.0
+// defines _PA_RISC2_0 instead.
+-d_PA_RISC1_1
+
+// for PA-RISC
+-d__hp9000s700
+-d__hp9000s800
+
+// defined language version (as of aCC revision 1.09)
+-d__cplusplus=199707L
+
+// standard C and aCC headers
+-I/opt/aCC/include
+-I/opt/aCC/include/iostream
+-I/usr
+-I/usr/include
+
+// additional C++ extensions
++cpp(C)
++cpp(cc)
++cpp(cxx)
+
+// built-in types:
++rw(__int64)        // __int64 is a 64-bit integer
+-dint64_t=__int64   // define built-in int64_t
+-d"uint64_t=unsigned __int64"   // define built-in uint64_t
+
+-function(exit, __assert)     // treat __assert just like exit
+
+// va_arg macro from stdarg.h causes these warnings
+-emacro(415, va_arg)
+-emacro(416, va_arg)
+-emacro(661, va_arg)
+-emacro(662, va_arg)
+
+// varargs.h causes these warnings
+-esym(718, __builtin_va_start)
+-esym(746, __builtin_va_start)
+
+// Additions for aCC
+-e1068		// Can too overload delete[]!
+-e1067		// Complains about legitimate delete(void *, const nothrow_t &)
+-esym(39,numeric_limits<unsigned int>)	// Balks at template specialization
+-esym(1029,basic_string<<1>,<2>,<3>>::basic_string)	// Confused
+-esym(64,basic_string<<1>,<2>,<3>>::basic_string)	// size_t = const size_t
+-esym(534,ostream::operator<<)	// OK to ignore operator<< result
+
+//////////////////////////////////////////////////////////////////////////
+
+// The remaining options are common to many Unix systems:
+
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.  Feel free to add to or subtract
+//  from this list.
+
+-esym(534,close,creat,fclose,fflush,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+// The following option is required by most compilers to
+// noiselessly process iostream.h
+-esym(1702,operator<<,operator>>)  // both a member and an ordinary function
+
+//  The following options were found necessary when processing
+//  the Unix headers within /usr/include
+
+// -i/usr/include     // Set an include directory (duplicate from above)
++fdi         // Use the directory of the including file
+
+
+-elib(553)  // undefined preprocessor variables are taken as 0
+	    // while processing library headers
+-di386=1    // needed for some Unix's
+-a#machine(i386)  //  #assert's machine(i386)  (SVR4 facility).
+
+-elib(607)   // parameter substitution within string
+-elib(602)   // in dial.h there are comments within comments ?
+-elib(760)   // redundant macro definitions
+-elib(537)   // repeated include files
+-elib(2)     // unclosed quotes in nserve.h
+-elib(123)   // size is both a variable and a macro with args
+-elib(762)   // repeated declarations permitted here, e.g. errno
+-elib(652)   // macros same name as function
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-esym(1512,string_ref_rep*) // base class whose destructor is not virtual
+-esym(1512,unary_function*) // ditto
+-esym(1512,binary_function*) // ditto
+
+-wlib(1)    // Sets warning level within library headers to 1
+	    // (i.e. suppress Warning and Info messages within libraries)
+	    // If you are actually checking library code you may want
+	    // to comment out this option.

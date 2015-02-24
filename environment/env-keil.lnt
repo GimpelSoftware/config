@@ -1,0 +1,21 @@
+/* Date Stamp */ -d"_lint_env_keil_lnt=env-keil.lnt modified 11-Dec-2003"
+/* To document usage use: -message( "Using " _lint_env_keil_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-keil.lnt: environment parameters for Keil's MicroVision IDE
+
+    From the Tools Menu choose "Setup PC LInt" and follow the
+    instructions provided by Keil
+    We appreciate the assistance of Frank Schmalz in the preparation
+    of this file.
+ */
+
+-hFsb_3
+-format="*** LINT: %(%f(%l) %)%t %n: %m"
+-width(0,10) // Don't break lines (this is required for MicroVision)

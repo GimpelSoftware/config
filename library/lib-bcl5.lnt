@@ -1,0 +1,56 @@
+/* Date Stamp */ -d"_lint_lib_bcl5_lnt=lib-bcl5.lnt modified 22-Jan-1997"
+/* To document usage use: -message( "Using " _lint_lib_bcl5_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+//  lib-bcl5.lnt
+//  Library Options file for Borland's ClassLib library
+
+-elib(40,64)    // we are attempting to process arguments at template
+                // definition time and running into trouble (in arrays.h)
+-elib(575)      // excessive size for enumeration constant (UINT_MAX)
+-elib(601)      // assume int silently when type expected
+-elib(648)      // 3 << 16 can lose in 16-bits
+-elib(659)      // semi-colon omitted after '}' in template declaration
+                // in arrays.h
+-elib(723)      // #define PURE = ...
+-elib(761,763)  // repeat of _CLASSDEF(Object) in clstypes.h & object.h
+-elib(745)      // implied int return value.
+-elib(773)      // expression-like macro not parenthesized
+-elib(806)      // bool:1 where bool is an int
+-elib(1013,1015) // inhibit complaint about Parent::operator delete
+-elib(1029)     // default value repeated for member functions:
+                // Detach and Flush
+-elib(1038)     // bare 'DeleteType' used in arrays.h
+-elib(1066)     // errno declared as both C and C++.
+-elib(1067)     // parameter for operator delete is void far *
+-elib(1068)     // access declaration results in this surprising error
+-elib(1411)     // member hides virtual member
+-elib(1509)     // non-virtual base class destructor.
+-elib(1515)     // class contains member w/o a default constructor
+-elib(1516)     // data member hides inherited data member
+-elib(1707)     // static assumed for Object::operator new()
+-elib(1725)     // class member is a reference (ArrayIterator::beingIterated)
+-elib(1727)     // inline with definition but no inline with declaration
+-elib(1729)     // initializer inversion occurs frequently
+
+-emacro(19,IMPLEMENT_STREAMABLE)  //macro may add a spurious ';'
+-emacro(19,IMPLEMENT_STREAMABLE1) //macro may add a spurious ';'
+-emacro(19,IMPLEMENT_STREAMABLE2) //macro may add a spurious ';'
+-emacro(84,DECLARE_STREAMABLE)    //builds a class w/ no data members
+
+//-esym(665,STATIC_CAST)  // bogus message involving parameter 1
+-esym(1509,*ListBlockInitializer)
+-esym(1510,TShouldDelete)
+-esym(1512,BaseMemBlocks,*ListBlockInitializer)
+-esym(1512,xerror,TM*)  // Base class destructors not virtual
+
+-elibsym(1512)  // base class destructor is non-virtual
+-rw(__segment)  // make sure that __segment is not taken as a reserved word.
+
+-header(lib-bcl.h)

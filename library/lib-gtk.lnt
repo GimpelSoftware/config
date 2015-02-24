@@ -1,0 +1,34 @@
+/* Date Stamp */ -d"_lint_lib_gtk_lnt=lib-gtk.lnt modified 20-Oct-2005"
+/* To document usage use: -message( "Using " _lint_lib_gtk_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+// Lint options for GTK library
+// Our thanks to Joe Vliestra for submitting this file
+
+// GTK defines several "downcast" macros
+// These macros test for validity data and are relatively safe
+-emacro((1924), GTK_*)
+-emacro((826), GTK_*)
+// Other GTK macros
+--emacro((1924), G_CALLBACK)
+-emacro((1924), G_LOG_DOMAIN, G_OBJECT, GLADE_HOOKUP_OBJECT)
+-emacro((1924), g_htonl)
+-emacro((1924), g_value_init)
+-emacro((826), G_CALLBACK, G_OBJECT)
+-esym((1924), gpointer, GConnectFlags)
+
+// GTK defines TRUE as (!FALSE) which means TRUE isn't considered a
+// constant by lint but an expression containing the boolean constant FALSE
+-emacro((506), TRUE)
+
+// GTK macros often wrap statements using the G_STMT_START/G_STMT_END
+// macros.  Which, for most systems, is a "do ... while(0) wrapper.
+-emacro((717), G_STMT_END)
+
+-emacro((1924), g_signal_connect)
+-esym(534, g_signal_connect_data, gtk_signal_connect_full)

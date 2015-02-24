@@ -1,0 +1,85 @@
+/* Date Stamp */ -d"_lint_env_vc4_lnt=env-vc4.lnt modified 4-May-2001"
+/* To document usage use: -message( "Using " _lint_env_vc4_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-vc4.lnt: environment parameters for Microsoft's Visual C++ 4.x WorkBench
+
+    If you are using the Microsoft Visual Workbench and you wish to invoke
+    PC-lint from that environment then do the following.
+
+    Consult the appropriate Microsoft documentation in the "Visual
+    Workbench User's Guide", Chapter "Customize Visual Workbench",
+    OR consult the on-line help in the "InfoView":
+
+    Visual C++ Books Online
+	User's Guides
+	    Visual C++ User's Guide
+		Customizing Microsoft Developer Studio
+		    Customizing the Tools Menu
+			Adding Commands to the Tools Menu
+
+    You may also check on line help for the format of error messages.
+
+    For example, to add a unit check-out facility to the tools bar do
+    the following:
+
+    1.  From the Tools Menu choose "Customize ..."
+	The Customize ... Dialog Box appears
+    2.  Select the "Tools" tab
+    3.  Choose "Add"
+	The Add Tool dialog box appears requesting a "Command"
+    4.  Type "C:\lint\lint-nt.exe" or equivalent and hit Enter.
+    5.  You will now be able to edit the fields of this Tool.
+	Modify them so that they approximate the following:
+
+	Menu Text           PC-lint (unit check)
+	Command Line        C:\LINT\LINT-NT.EXE
+    Arguments           -iC:\LINT -u std.lnt env-vc4.lnt "$(FileName)"
+	Initial Directory   $(FileDir)
+
+	_  Prompt for Arguments
+	X  Redirect to Output Window     _  Close Window on Exit
+    6.  Select Close to return to the main environment.
+
+    This will result in the Tools menu containing the additional item
+    "PC-lint (unit check)".
+    Checking 'X' on 'Redirect to ...' is important because in this way you
+    can advance from error to error using the F4 key (Shift F4 to reverse)
+    or, less handily, using the "Next Error" ("Prev Error") entries in
+    the "Search" menu.
+
+    Note that by providing an "Initial Directory" and a local "$(FileName)"
+    the containing directory can have a std.lnt that overrides the
+    global std.lnt.  Also file-names in messages are not so long.
+
+    *Caution* -- You MUST have parentheses with $(Filename) and $(FileDir)
+    or you will receive an incomprehensible diagnostic.  Historically,
+    You did not always need parentheses with VC++, so people have made
+    this mistake.
+
+    If you are using full path names in your visual environment, in order
+    to use the F4 key to bounce to the next error you should give an option
+    to PC-lint to produce full file names.  The option you will need is:
+
+			    +ffn
+
+ */
+
+
+-"format=%(%F(%l):%) %t %n: %m"     //  Messages will contain
+	//  file information (%F), the line number (%l), the
+	//  message type (%t) message number (%n) and message text (%m).
+
+-hF2    //  Make sure we ALWAYS provide file information ('F') and use 2
+	//  lines (line in error plus message).
+
+-width(0) //  don't break messages at any particular width
+-t4       //  Presume that tabs are every 4 stops
++e900     //  issue a message at termination.
+

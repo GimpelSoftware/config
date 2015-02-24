@@ -1,0 +1,284 @@
+/* Date Stamp */ -d"_lint_au_64_lnt=au-64.lnt modified 12-Jun-2009"
+/* To document usage use: -message( "Using " _lint_au_64_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+// au-64.lnt -- Author options - 64-bit issues
+
+/*
+    This options file is designed for use in conjunction with one of
+    the au-*lp64.lnt files to explicitly activate checks for 64-bit
+    related issues.
+
+    You also can use this file directly when linting your programs as
+    in:
+
+        lin  au-64  files
+
+    However, if you do, make sure the memory model is described with
+    suitable -s options.
+
+ */
+
+/*  Using constant offset values, instead of calculating the offest
+    explicitly, to access structure members can produce invalid
+    results.  E.g.
+
+    struct offset_example_struct
+        {
+        long i64;
+        int i32;
+        } oes;
+    i32 = *(int*)(&oes + 4);        // Likely access of out-of-bounds pointer   (W 415)
+                                    // Likely creation of // out-of-bounds pointer (W 416)
+ */
+
+    +e415
+    +e416
+
+/*  Presuming specific sizes of basic types may cause incorrect binary
+    operations.  E.g.
+
+    char arr64[ 8 ];
+    i32 = sizeof(struct_with_2_i64s);
+    memcpy( arr64, &struct_with_2_i64s, i32 ); // Apparent data overrun (W 419)
+ */
+
+    +e419
+
+/*  Moving from a 32-bit platform to 64-bit platform can cause format
+    specification mismatches.  E.g.
+
+    printf( "%d\n", i64 );          // Size of argument inconsistent with format (W 559)
+    printf ("The hex value of %f is %x", f32, f32);
+ */
+
+    +e559
+
+/*  Moving from a 32-bit platform to 64-bit platform can cause format
+    specification mismatches.  E.g.
+
+    scanf( "%d", &i64 );            // indirect object inconsistent with format (W 561)
+ */
+
+    +e561
+
+/*  Correctly using prototypes can help ensure valid function
+    arguments.  E.g.
+
+    void func1(int);
+    void func2()
+        {
+        extern void func1();        // Redeclaration causes loss of prototype (W 580)
+        }
+ */
+
+    +e580
+
+/*  Moving from a 32-bit platform to 64-bit platform can cause format
+    specification mismatches.  E.g.
+
+    printf("%x\n", p64);            // argument inconsistent with format (W 626)
+ */
+
+    +e626
+
+/*  Moving from a 32-bit platform to 64-bit platform can cause format
+    specification mismatches.  E.g.
+
+    scanf("%ld", &i32); // indirect object inconsistent with format (W 627)
+                        // note: this example applies to the LLP64 and
+                        //      ILP64 models; Linting this example for
+                        //      the LP64 model will produce a similar
+                        //      message, but of greater severity. (W 561)
+ */
+
+    +e627                           // For LLP64 and ILP64
+    +e561                           // For LP64
+
+/*  Calculations using 32-bit values are truncated back to 32-bits
+    before passing to 64-bit objects.  E.g.
+
+    i64 = i32 << 8;                 // Suspicious truncation (W 647)
+    i64 = 1 << i32;
+    i64 = i32 * 8;
+    i64 = i32_1 * i32_2;
+    i64 = (i64_type)(i32_1 * i32_2);
+    p64 = (void*)(i32_1 * i32_2);   // Suspicious truncation (W 680)
+ */
+
+    +e647
+    +e680
+
+/*  Calculations involving 32-bit values are truncated back to 32-bits
+    before combining with 64-bit objects.  E.g.
+
+    p64 + (i32_1 + i32_2);          // Suspicious truncation (W 679)
+ */
+
+    +e679
+
+/*  Some types which were often 32-bits in length under the ILP32
+    model are 64-bits under each of the 64-bit models.  Passing these
+    "safe in ILP32" expressions to a 32-bit object in the 64-bit
+    models results in lost precision and in potential miscalculation.
+    E.g.
+
+    i32 = i64;                      // Loss of precision (I 712)
+    i32 = pointer_1 - pointer_2;    // Loss of precision (I 712)
+
+    size_t f_size_t();
+    i32 = f_size_t();               // Loss of precision (I 712)
+ */
+
+    +e712
+
+/*  Assigning a 64-bit constant, if not to a 64-bit variable, can
+    result in lost precision and information.  E.g.
+
+    u32 = (u64_type) -1 ;           // Loss of precision (I 712)
+                                    // Loss of information (W 569)
+ */
+
+    +e712
+    +e569
+
+/*  A loss of sign extension can occur when mixing signed with
+    unsigned types, unless the entire "mixed" expression is casted
+    back to the signed type or one operand is cast to 64-bits.
+    E.g.
+
+    i64 = -2 / u32;                 // Loss of sign in promotion (I 737)
+ */
+
+    +e737
+
+/*  A loss of sign extension can occur when mixing signed with
+    unsigned types, unless the entire "mixed" expression is casted
+    back to the signed type or one operand is cast to 64-bits.
+    E.g.
+
+    i64 = -2 + u32;                 // no sign extension occurs
+                                    // Loss of sign in promotion (I 737)
+                                    // Possible truncation of addition (I 776)
+ */
+
+    +e737
+    +e776
+
+/*  A loss of sign extension can occur when mixing signed with
+    unsigned types, unless the entire "mixed" expression is casted
+    back to the signed type or one operand is cast to 64-bits.
+    E.g.
+
+    void f_64(int64_t);
+    f_64(i32 + u32);                // no sign extension
+                                    // Significant prototype coercion (I 747)
+                                    // Possible truncation of addition (I 776)
+                                    // Prototype coercion (N 917)
+ */
+
+    +e747
+    +e776
+    +e917
+
+/*  Calculations using 32-bit values are truncated back to 32-bits
+    before passing to 64-bit objects.  E.g.
+
+    i64 = i32 + 3;                  // Possible truncation of addition (I 776)
+ */
+
+    +e776
+
+/*  Casting a 64-bit address to a 32-bit integer type can
+    result in lost information.  E.g.
+
+    i32 = (int) p64;                // Size incompatibility (W 507)
+ */
+
+    +e507
+
+/*  Correctly using prototypes can help ensure valid function
+    arguments.  E.g.
+
+    void nonprototyped(long n)
+        {
+        // ...
+        }                           // Function defined without a
+                                    // prototype in scope (N 957)
+ */
+
+    +e957
+
+/*  Organizing structure members from largest to smallest can reduce
+    the need for padding and, consequently, memory consumption.
+    E.g.
+
+    struct alignment_issues
+        {
+        int32_t i32;
+        int64_t i64;
+        };                          // Padding of 4 byte(s) is
+                                    // required to align member
+                                    // on 8 byte boundary (N 958)
+
+    The alignment options (-a..., see PC-lint/FlexeLint manual,
+    Section 5.3) should be considered to ensure correct alignment
+    assumptions.  E.g.
+ */
+
+    +estring(958,member)
+
+/*  Using types which specify bit sizes (such as, int64_t) instead of
+    the built-in types can provide more easily predictable behavior.
+    E.g.
+
+    long _32_or_64_bits;            // Use of modifier or type 'long'
+                                    // outside of a typedef (N 970)
+ */
+
+    +esym(970,long)
+
+/*  Correctly using prototypes can help ensure valid function
+    arguments.  E.g.
+
+    extern void no_argument_info(); // empty prototype, assumed '(void)' (I 1717)
+    void f()
+        {
+        no_argument_info(3);
+        }                           // no argument information provided (W 628)
+                                    // call not made in presence of a prototype (I 746)
+                                    // old-style function declaration (N 937)
+ */
+
+    +e1717
+    +e628
+    +e746
+    +e937
+
+/*  Using const variables instead of macros can provide useful type
+    checking.  E.g.
+
+    #define OFFSET1 0xffffffff      // macro could become const variable (N 1923)
+ */
+
+    +e1923
+
+//              Strong Type Torture Test
+//              ------------------------
+// Feel free to activate any of the following options to 'torture
+// test' the code for 64-bit related issues.
+//    -strong(AJX,size_t)   // Ensures size_t is not mixed with other types
+//    -strong(AJX,ptrdiff_t)// Ensures ptrdiff_t is not mixed with other types
+//    +e632                 // Assignment to strong type
+//    +e633                 // Assignment from a strong type
+//    +e634                 // Strong type mismatch in equality or conditional
+//    +e636                 // ptr to strong type versus another type
+//    +e637                 // Expected index type for strong type
+//    -index(,ptrdiff_t)    // For message #637 above
+//    +e638                 // Strong type mismatch in relational
+//    +e639                 // Strong type mismatch in binary operation

@@ -1,0 +1,79 @@
+/* Date Stamp */ -d"_lint_env_mw_lnt=env-mw.lnt modified 26-Mar-2003"
+/* To document usage use: -message( "Using " _lint_env_mw_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+// env-mw.lnt
+// The following information was kindly supplied to Gimpel Software from Metrowerks
+// so that their customers can use PC-lint directly from the CodeWarrior environment.
+// Gimpel Software, 3/26/03
+
+/*
+This readme describes the PClint integration into CodeWarrior. PClint is a product of
+Gimpel (www.gimpel.com) which has to be installed separatly. You can buy PClint directly
+from Gimpel (www.gimpel.com).
+
+Files
+=====
+This plug-in interfaces the PClint with CodeWarrior in a simple and easy way.
+Following files are installed/needed for this:
+- CodeWarrior help\CWPCLINTO.HLP: PClint options help (CodeWarrior tool tips)
+- CodeWarrior help\CWPCLINTS.HLP: PClint main help (CodeWarrior tool tips)
+- Bin\plugins\Compiler\PCLintCompiler.dll: Compiler plug-in
+- Bin\plugins\Linker\PCLintLinker.dll: Linker plug-in
+- Bin\plugins\Preference Panel\PCLintOptions.dll: options preference panel
+- Bin\plugins\Preference Panel\PCLintSettings.dll: settings preference panel
+- Lint\lnt\CodeWarrior\*.lnt: Lint configuration files
+The implementation assumes that you have the PClint software installed in the 'Lint'
+folder inside CodeWarrior. If not, then you have to adapt the path settings in the PClint
+settings of the preference panels.
+
+LCF (Lint Configuration Files)
+==============================
+Lint configuration files are stored in Lint\lnt\CodeWarrior\*.lnt.
+Currently configuration files for following CodeWarrior are provided:
+- CodeWarrior for Motorola HC05
+- CodeWarrior for Motorola HC08
+- CodeWarrior for Motorola HC11
+- CodeWarrior for Motorola HC12
+- CodeWarrior for Motorola HC16
+- CodeWarrior for PowerPC (Metrowerks)
+- CodeWarrior for PowerPC (HIWARE, legacy)
+- CodeWarrior for Motorola M68k (HIWARE, legacy)
+- CodeWarrior for STMicroelectronics ST7
+- CodeWarrior for Philips 8051XA
+
+CodeWarrior Integration
+=======================
+With the CodeWarrior integration, in the project preference panel there is a
+'PClint Linker' available in the Target Settings Panel.
+If you set this as Linker, you will have two addtional preference panels available:
+- PCLint Main Settings
+  Here you can specify
+  - the PClint executable
+  - if command line options have to be displayed (for problem isolation)
+  - if inter-modul checks have to be performed
+  - the path were additional *.lnt files can be found
+  - which Metrowerks compiler is used (lnt file selection)
+  - if default lnt/Compiler options file should be displayed too for selection
+  - an optional prefix file
+- PCLint Options
+  here you can specify
+  - author options
+  - library options
+  - message inhibition
+  - additional PClint options (see PClint documentation)
+
+How to PClint your application/files
+====================================
+The easiest way is to take an already existing project and clone it (Project > Create Target and then
+clone it from an existing project).
+Then go to the cloned target preference panel and select 'PClint Linker' as the linker.
+Check in the 'PCLint Main Settings' the path to your PClint executable, and select the correct compiler
+(lnt file).
+
+*/

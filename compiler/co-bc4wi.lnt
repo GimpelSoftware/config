@@ -1,0 +1,90 @@
+/* Date Stamp */ -d"_lint_co_bc4wi_lnt=co-bc4wi.lnt modified 10-Dec-1998"
+/* To document usage use: -message( "Using " _lint_co_bc4wi_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-bc4wi.lnt
+//    Compiler Options for Borland C, C++ 4.0 for Windows
+
+-ctc
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-bc4wi.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(87)   // windef.h contains a botched #ifdef
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(726)  // inhibits error involving extraneous comma in enumerations
+            // within library header graphics.h
+-elib(553)  // use of undefined preprocessor variables like #if __STDC__
+            // within string.h
+-elib(123)  // stdarg.h defines __size() and stdio.h uses __size parameter
+-elib(579)  // Borland C++ compensates for sub int params in stdarg.h
+            // this is still a dangerous nonportable practice for user programs
+-elib(743)  // '\x80' is used in limits.h
+
+-emacro(507,FP_OFF)  // inhibit loss of information message.
+--emacro(507,offsetof)  // inhibit loss of info message in macro
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK
+-emacro(792,assert)  // inhibit void cast of void message
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+			// 796 and 797 (out-of-bounds errors).
+
++rw(_export)    // needed especially for Windows programming
+-sld10          // sizeof(long double) is 10.
+-elib(770)  // WORDREGS, BYTEREGS, REGS, SREGS  defined in both
+            // bios.h and dos.h
+-etd(origin) // this will inhibit complaints about 'origin' type differences
+            // this occurs when both bios.h and dos.h contribute the
+            // identical struct's to a program.
+-e793       // inhibit 'ANSI limit reached' --
+            // limits are impractically low with Borland headers
+
+
+// Windows-specific options:
+    // +e934   report passing near auto pointers to other functions
+    // (enable 934 when you're writing DLL's)
+    // See Petzold, Windows 3.0, pp 897-902
+-printf(w2,wsprintf)   // complains if pointers to wsprintf are not far.
+-esym(14,pLocalHeap)   // variable defined in windows.h
+-e740   // remove 'suspicious cast' messages because these must be
+        // routinely done within Windows.
+-elib(46) // windows.h uses a BYTE as base of bit field.
+-function(exit,_exit)   // _exit() is like exit()
+-function(exit,__assertfail)  // __assertfail() is like exit()
+-emacro(570,disable,_disable,enable,_enable)  // allow (char) 0xFA
+-emacro(734,putc)   // don't complain about items being too large.
+-d_asm=asm          // Borland accepts both "_asm" and "asm"
+
+// Borland 4.0 added keywords
++rw(__interrupt,__near,__far,__huge,__fortran,__pascal,__cdecl)
++rw(__export,__loadds,__saveregs,__asm,__fastcall,__stdcall)
++rw(_stdcall)
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fflush,fprintf,fputc)
+-esym(534,_fputc,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+-esym(534,__assertfail)
+

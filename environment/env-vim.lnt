@@ -1,0 +1,73 @@
+/* Date Stamp */ -d"_lint_env_vim_lnt=env-vim.lnt modified 30-May-2008"
+/* To document usage use: -message( "Using " _lint_env_vim_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-vim.lnt: environment parameters for Vi IMproved (by Bram Moolenaar
+    et al).
+
+    If you are using Vim and you wish to invoke PC-lint/Flexelint using
+    Vim's :make command (see :help :make) in order to take advantage of
+    Vim's quickfix feature, copy the file flint.vim (given inline below)
+    into the 'compiler' directory in one of your runtime path directories
+    (see :help 'rtp').  (You'll probably want to use a personal directory
+    rather than a system-wide configuration dirctory; on unix-like systems
+    this is typically $HOME/.vim/; on Windows it's $HOME/vimfiles/.)
+
+" ---- Beginning of ${vimfiles}/compiler/flint.vim ----
+" Compiler:     PC-lint/FlexeLint: an enhanced Lint for C and C++
+" Maintainer:   James Widman <widman->gimpel>
+" URL:	        http://gimpel.com
+" Last Change:  2008 May 31
+
+if exists("current_compiler")
+  finish
+endif
+let current_compiler = "flint"
+
+" Note, env-vim.lnt sets Lint's error format to conform to Vim's
+" default value of the 'errorformat' option.
+CompilerSet errorformat&
+
+CompilerSet makeprg=
+\\ ~/bin/lint
+\\ --i$HOME/lint_config
+\\ env-vim.lnt
+\\ +b
+
+" ---- End of Vim compiler file ----
+
+    Naturally, you'll want to modify the path names given to the 'makeprg'
+    option to suit your environment.  It's assumed that env-vim.lnt exists
+    in whatever directory you use in place of ${HOME}/lint_config.  (Of
+    course, you could alternativly give the full pathname of env-vim.lnt.)
+
+    After you've saved flint.vim into a 'compiler' directory, you should
+    be able to run lint and use the command:
+
+        :compiler flint
+
+    ...or:
+
+        :compiler! flint
+
+    Now Lint is set as the make program, so you can do:
+
+        :make [args to Lint here]
+
+    ...and then tick through the diagnostics issued by Lint with :cn.  Vim
+    will then place the cursor on the line indicated in the diagnostic.
+
+*/
+
+-"format=%f%(:%l%)%(:%c:%) %t %n: %m"
+
+// Optional setting (uncomment to enable):
+// -hFb^3  // Always show line info (F), and put a caret under the line
+//         // to indicate the column (EDG-style).
+

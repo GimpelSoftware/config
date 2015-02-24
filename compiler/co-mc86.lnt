@@ -1,0 +1,51 @@
+/* Date Stamp */ -d"_lint_co_mc86_lnt=co-mc86.lnt modified 27-Aug-2003"
+/* To document usage use: -message( "Using " _lint_co_mc86_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-mc86.lnt
+// microtec compiler options file
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-mc86.lnt  source-file(s)
+
+
+
+
+                    // you will want to change the following list of definitions
+-d_MCC86=1          // compilier parameters
+-d_MATHLIBF=1       // floating point libraries
+-d_MRI_EXTENSIONS=1
+-d__STDC__=1
+-d_CHAR_SIGNED=0    // system parameters
+-d_CHAR_UNSIGNED=1
+-d_SIZEOF_SHORT=16
+-d_SIZEOF_INT=16
+-d_SIZEOF_LONG=32
+
++rw(packed)         // reserved word to be ignored.
+
+     // lint parameters
+-si2 //size of int is 2 bytes need for lint
+
+	   // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(659) // nothing follows '}' on same line
+-elib(652) // suppresses messages about previously declared symbols
+-elib(773) // macro not parenthesizied
+-elib(761) // redundant typedefs
+-elib(760) // redundant macros
+-elib(537) // repeated lib include files
+
+-header(co-mc.h)  // supports asm()
++libh(co-mc.h)    // don't insist on using the function declared there

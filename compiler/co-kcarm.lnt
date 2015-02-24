@@ -1,0 +1,74 @@
+/* Date Stamp */ -d"_lint_co_kcarm_lnt=co-kcarm.lnt modified 27-Jun-2005"
+/* To document usage use: -message( "Using " _lint_co_kcarm_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-kcarm.lnt
+//    Compiler Options for the Keil CARM Compiler Version 2
+//
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-kcarm.lnt  source-file(s)
+//
+//    You may contact Keil Software, Inc. at:
+//
+//    16990 Dallas Parkway, Suite 120
+//    Dallas, Texas  75248-1903
+//    Phone:  972-735-8052  Fax:  972-735-8052
+//    Sales:  800-348-8051
+
+-hsb_3           // formatting options required for MicroVision IDE
+-format="*** LINT: %(%f(%l) %)%t %n: %m"
+-width(0,10)     // Don't break lines
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
++v
+
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
++rw(_gobble)              // activate the _gobble keyword
+                          // causes _gobble token to be both ignored
+-d__isr=_gobble           // defines __isr    to be a _gobble
+-d__fiq=_gobble           // defines __fiq    to be a _gobble
+-d__task=_gobble          // defines __task   to be a _gobble
+-d__at=_gobble            // defines __at     to be a _gobble
+-d__arm=_gobble           // defines __arm    to be a _gobble
+-d__thumb=_gobble         // defines __thumb  to be a _gobble
+-d__packed=_gobble        // defines __packed to be a _gobble
+-d__inline=_gobble        // defines __inline to be a _gobble
+-d__ram=_gobble           // defines __ram    to be a _gobble
++rw(_ignore_init)         // activate this keyword
++rw(__declspec)           // activate this MS keyword
+
+-sp4    // size of pointer is 4 bytes
+
++d__CARM__=210          // set CARM compiler version to 2.10
++d__DATE__="Mar 2 2005" // set CARM compiler date macro
++d__TIME__="11:55:00"   // set CARM compiler time macro
++d__FILE__="MYFILE.C"   // set CARM compiler file macro
++d__LINE__=100          // set CARM compiler line macro
++d__STDC__=1            // set CARM compiler STDC macro
+
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,memcpy,memmove,memset,strncat,strncpy)
+-esym(534,printf,putchar,puts,scanf,sprintf,sscanf,strcat,strcpy)
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK

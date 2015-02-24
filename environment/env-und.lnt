@@ -1,0 +1,102 @@
+/* Date Stamp */ -d"_lint_env_und_lnt=env-und.lnt modified 5-Sep-2002"
+/* To document usage use: -message( "Using " _lint_env_und_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-und.lnt: environment parameters for Scientific Toolworks
+                Understand for C++
+
+    If you are using Understand and you wish to invoke
+    PC-lint from that environment then add one or more commands to the
+    Options menu as follows.
+
+    Unit Checkout
+    -------------
+
+    To add a unit check-out facility to the options menu do the following:
+
+    1.  From the "Options" Menu choose "Tool Configurations..."
+        The Dialog Box appears
+    2.  Select the "Tools" tab and then "New"
+    3.  Fill in the fields as follows:
+
+        Menu Text:      PC-lint (unit check)
+        Command:        C:\lint\lint-nt.exe
+        Parameters:     -i"C:\lint" -u std.lnt env-und.lnt $CurFile
+        Initial Dir:    $CurFileDir
+
+        (alter the path appropriately if you did not install into c:/lint)
+
+    4.  There are also check boxes that you can check as follows:
+        Add to Pop Up Menu - enables you to right click on a file to run lint
+        Add to Tools Menu - adds PC-lint to the Options -> User Tools menu
+        Add to Tool Bar - adds PC-lint to your tool bar
+        Capture output of command line tool - make sure you check this one
+
+        We suggest you check all the boxes
+        (except Understand Perl Script which should be greyed out)
+
+    5.  Select Apply and OK to return to the main environment.
+
+    If you checked "Tools Menu" above you can go to "Options" ->
+    "User Tools" and you'll see "PC-lint (unit check)" as one of
+    the choices.
+
+    If you checked "Pop Up Menu" above you can right click on a file,
+    and you'll get the choice of running lint on that file.
+
+    If you checked the "Tool Bar" box above, an icon for PC-lint was
+    added to your tool bar.  If you choose "Tool Bar" from "Options"
+    -> "Tool Configuration" you can change the icon used for PC-lint.
+
+    After you run PC-lint, Understand will open a window for your
+    lint output.  Double click on a lint error message and your
+    cursor will be placed at the appropriate line of your source code.
+
+
+    Project Check
+    -------------
+
+    You will probably want to create a second item on the Tools menu
+    called "PC-lint (project check)".  For this tool follow the steps
+    1-5 doing exactly the same thing as above except in step 3, the
+    information entered should be:
+
+        Menu Text:      PC-lint (project check)
+        Command:        C:\LINT\LINT-NT.EXE
+        Parameters:     -i"C:\LINT" std.lnt env-und.lnt project.lnt
+        Initial Dir:    $CurFileDir
+
+    This will require that you have a file called project.lnt
+    containg a list of the names of the modules
+    (all files except headers) in your project.
+    Such a list can usually be prepared with the help of the DIR command.
+    For example, the following batch command will produce a list of all
+    the .CPP files within a directory:
+
+        DIR /b *.cpp >project.lnt
+
+    If you are using full path names in your visual environment
+    you should give an option
+    to PC-lint to produce full file names.  The option you will need is:
+
+			    +ffn
+
+ */
+
+
+-"format=%(%F(%l)%) (%t %n -- %m)"     //  Messages will contain
+        //  file information (%F), the line number (%l), the
+        //  message type (%t), message number (%t) and message text (%m).
+
+-hF3    //  Make sure we ALWAYS provide file information ('F') and use 3
+        //  lines (line in error plus message).
+
+-width(128) // break messages at a width of 128 characters
+-t4       //  Presume that tabs are every 4 stops
++e900     //  issue a message at termination.

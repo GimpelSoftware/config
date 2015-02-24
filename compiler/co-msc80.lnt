@@ -1,0 +1,350 @@
+/* Date Stamp */ -d"_lint_co_msc80_lnt=co-msc80.lnt modified 16-Mar-2011"
+/* To document usage use: -message( "Using " _lint_co_msc80_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-msc80.lnt
+//    Compiler Options for Microsoft C Version 14.00
+//         (32 bit version)
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-msc80.lnt  source-file(s)
+//
+
+-cmsc
++compiler(search_actively_including_stack)
+-si4    // integers are 4 bytes
+-sp4    // pointers are 4 bytes too.
+
+        // We now support __declspec directly so that the following
+        // option is now commented out.  If trouble ensues you can
+        // once again disable __declspec through this option.
+        // -d__declspec()= // ignore this construct
+-d_declspec=__declspec  // the single '_' version is occasionally used
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+        // (no warnings, just syntax errors).  Comment out if you
+        // are actually linting library headers.  This
+        // option makes obsolete options of the form -elib(axxx) where
+        // xxx >= 400 which may be retained for historical reasons.
+-elib(1111) // Some VC++ headers contain explicit specializations at class
+            // scope.
+-elib(19)   // useless declarations (lone semicolons)
+-elib(123)  // function-like macro name used as non macro
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(514)  // allow #if <boolean> | <boolean>
+-elib(553)  // undefined preprocessor variables assumed 0
+-elib(1081) // suspicious object argument to an object parameter
+-elib(726)  // extraneous comma in enum definition
+
+//  SREGS, WORDREGS, BYTEREGS are defined in both bios.h and dos.h
+//  and accordingly you MAY get type differences based on 'origin'.
+//  If so, use the following options:
+//      -etd(origin)
+//      -elib(770)
+
+-format=%(%f(%l)\s:\s%)%t\s%n:\s%m
+        // error format similar to MSC
+        // Note that %c can also be used to specify column
+-e46    // allows bit-fields to be other than int or unsigned
++fan    // allow anonymous unions
++fdi    // Use directory of the including file
++fbo    // enable the bool type
++fwm    // wprintf format codes are not standard
+-fdh    // do not append a .h to header names
+-esym(123,min,max)  // allows users to use min, max as variables
++rw(__inline)   // activate the __inline keyword
++ppw(import)    // activate #import
+-d_inline=__inline  // _inline is the same as __inline
+-sld10          // sizeof(long double) is 10.
+-function(exit,_exit)   // _exit() is like exit()
+-function(exit,_assert)   // _assert() is like exit()
+-emacro(506,assert) // don't warn about constant value Boolean
+-emacro(734,putc)   // don't complain about items being too large.
+-emacro(415,_FP_SEG)  // access of out-of-bounds pointer
+-emacro(740,FP_SEG,FP_OFF)  // unusual casts
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+            // 796 and 797 (out-of-bounds errors).
+-emacro((???),va_start) // the same applies to va_start
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK
+-emacro(845,RGB)       // a common use of RGB uses a operator that produces a 0
+-e793           // inhibit 'ANSI limit reached' --
+        // limits are impractically low with MSVC headers
+-esym(628,eof)  // failure to provide argument information for eof()
+-esym(773,L_tmpnam)     // defined with an unparenthesized '+'
+-esym(438,_acp)         // USES_CONVERSION assigns to _acp.
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fflush,_flsbuf,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+//  These are the wide char variants of printf-scanf family
+
+-wprintf( 1, wprintf )
+-wprintf( 2, fwprintf, swprintf )
+-wscanf( 1, wscanf )
+-wscanf( 2, fwscanf, swscanf )
+
+// The following options are used to adjust our function mimicry to
+// the actual library as provided by MS.
+
+-function( wcstombs(1) )  // remove the check for a NULL first arg to wcstombs()
+
+// The following options are required by most compilers to
+// noiselessly process iostream.h
+
+-elib(1717) //empty prototypes
+-elib(522) //function return value ignored
+-elib(1053) //prototypes cannot be distinguished
+-elib(1721) //unusual operator =() declaration
+-elib(1720) //assignment op has non-const parameter
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(641)  // converting enum's to int
+-elib(537)  // repeated include file (ios.h)
+-elib(1511) // member (rdbuf) hides nonvirtual member
+-elib(1712) // default constructor not defined for class
+-elib(1736) // redundant access specifierd_NATIVE_WCHAR_T_DEFINED
+-esym(1702,operator<<,operator>>)  // both a member and an ordinary function
+
+// These functions return things that are frequently ignored.
+
+-esym(534,*operator<<,*operator>>)
+
+// The following additional options seem to be needed.
+
+-elib(506) // constant value Boolean
+-elib(620) // el or one? (some constants end in 'l' not 'L')
+-elib(648) // overflow in computing constant (3<<16)
+-elib(659) // nothing fold_NATIVE_WCHAR_T_DEFINEDlows '}' on some line
+-elib(723) // suspicious use of '='
+-elib(747) //significant prototype coercion
+-elib(740) //unusual pointer casts
+-elib(1007) // virtual functions within extern "C" block
+-elib(1029) //default argument repeated -- can't dist. char, signed char
+-elib(1055) //call to rdbuf() questioned?
+-elib(1504) // apparently useless structs
+-elib(1708,1709) // minor C/C++ declaration conflict
+-elib(1707) // operator new declared w/o 'static'
+-elib(1722) // assignment op does not return reference
+-elib(149)  // default argument found in C code.
+-elib(578)  // declaration of time hides delaration of global time().
+-elib(761)  // two equivalent typedef declarations
+-elib(1065)  // same name declared as "C" and not "C"
+-elib(1066)  // same name declared as "C" and not "C"
+-elib(1704)   // constructor with private access declaration
+-elib(1735)   // default parameter within virtual function
+-elib(773)  // macros that look like unparenthesized expressions
+-elib(806)  // 1-bit bitfields typed int
+-elib(1501) // 0-length data members
+-elib(1510) // base class has no destructor
+-elib(1516) // data member hides inherited member
+-elib(1509) // base class destructor is not virtual
+
+// Special Notice:  You may be receiving mysterious 1058 errors
+//   when you use "iomanipulator"s.  For example:
+//   cout << setw(4) << 4;
+//   results in Error 1058 (assigning a const to a ref) because the
+//   manipulator setw returns a non-lvalue which is assigned to a reference.
+//   This reflects an oversight in the Microsoft header file: iomanip.h
+//   Therein you may change the declaration:
+//     friend ostream& operator<<(iostream& s, IOMANIP(T) & sm) { ...
+//   to:
+//     friend ostream& operator<<(iostream& s, const IOMANIP(T) & sm) { ...
+//   to reflect the fact that sm is not modified by this function.
+
+-d_INTEGRAL_MAX_BITS=64  // denotes support for __int64
++fll            // enable long long
+-d__STDC__=0    // Starting with 2.0, the tests within Microsoft header
+        // files for __STDC__ are of the form #if rather than #ifdef
+-d_WIN32        // denotes support for 32 bit Windows
+-dDBG=0         // There is a #if test made for this variable.
+-d__FUNCTION__=___function___  // a macro denoting the current function
+
+/*  The option -d_NEW_ previously appearing in this spot is no longer
+    recommended as it nullifies the <new> header and because of this
+    prevents definition of 'bad_alloc' among other things.
+ */
+
+/*  DLL's  or Multithreads?  Enable the following:
+
+    -d_AFXDLL   // making a DLL
+    -d_DLL      // ditto
+    -d_MT       // multi-thread
+
+ */
+
+/*  At one time we indicated that wchar_t was predefined by using
+    the option +fwc but then because to suppress the Microsoft headers
+    from redefining it we used the option -d_WCHAR_T_DEFINED
+    But this in turned created a rare problem so now we just leave it
+    undefined.
+ */
+
+// In the following option we define __uuidof() and suppress
+// Errors 50 and 69 and 1924 in exprs. containing same
+-d"__uuidof()= /*lint --e(50,69,1924) */ (_GUID)0"
+
+-esym(123,FD_SET)  // defined as macro and as typedef
+-esym(1726,endl,ends)   // taking the address of an overloaded function
+-esym(18,Data_t::Data_t)  // definition not matching declaration
+
+-elib(10)       // expecting ')' -- comdef.h has a: #if defined( id
+-elib(43)       // vacuous array within _MIDL_FORMAT_STRING
+-elib(602)      // benign comment within comment
+-elib(657)      // declaring "anonymous struct" in union _LARGE_INTEGER
+-elib(799)      // long numerical constant for max. __int64
+-elib(1502)     // nothrow has no data members
+-elib(1505)     // no access specifier in base class specifier
+-elib(1515)     // AFX_THREAD_STATE member has no default constructor
+-elib(1706)     // Unusual declaration with a scope operator
+-elib(1725)     // data member is a reference
+-elib(1548)     // conflicting exception specifications
+-elib(1737)     // hiding global operator new
+-elib(1739)     // binary operator should be non-member function
+-elib(1748)     // non-virtual base class included twice
+-elib(1759)     // post-fix operator returns a reference
+
+//  Add elements of ole automation
+
+lib-ole.lnt
+
+//  Options required for .net
+
+-d_stdcall=__stdcall    // make _stdcall equivalent to __stdcall
+-d__interface=class     // treat an interface the same as a class
+-d__unaligned=          // pass over the __unaligned keyword
+-d__w64=                // ignore this identifier
+// Make sure you define your architecture type by unleashing one
+// of the following defines:
+      -d_X86_
+    //-d_MPPC_
+    //-d_PPC_
+    //-d_IA64
+    //-d_MIPS
+    //-dMIDL_PASS
+    //-d_ALPHA_
+-esym(40,DLGPROC)       // used before being defined
+-elib(146)              // assuming binary constant
+-elib(1015)             // GetDefaultThreads not found in class
++ppw(using)             // ignore #using for now.
+
+-d__pragma(x)=          // ignore the pragma extension
++rw(__ptr64)            // additional qualifier
++rw_asgn(__thiscall,fortran) // additional qualifier
+
+-"d__identifier(x)=___identifier x"
+                        // treat C++ keyword x as an identifier
+
+-elibsym(1512)  // base class destructor not virtual
+-d_MSC_VER=1400 // compiler version (in decimal)
+-d_MSC_FULL_VER{140050727} // full compiler version #
+-d_MSC_EXTENSIONS{1}    // Change value to 0 if not using extensions
+-d_M_IX86=600   // assume Intel 80386 architecture -- modify to suit
+-d__COUNTER__=__lint__COUNTER__
+
+// These two are defined only when the user compiles with the
+// /Zc:wchar_t option for VC8.  However, we have found
+// -d_WCHAR_T_DEFINED created a rare problem.  So, now, we just leave
+// them undefined.  If the user *really* wants to deal with the issues
+// these options raise, they can uncomment them.
+    //-d_NATIVE_WCHAR_T_DEFINED{1}
+    //-d_WCHAR_T_DEFINED
+
+-dinitonly= // Compiler should catch miss-uses.
+            // Lint can just skip over it.
+-"dliteral=static const"    // Documentation says they are
+                            // equivalent for member data.
+
+// When compiling with /J, use:
+    //+fcu                      // Plain char is unsigned
+    //-d_CHAR_UNSIGNED
+
+// When compiling with /clr, /clr:pure or /clr:safe, use:
+    //-d__cplusplus_cli=200406  // for all 3
+    //-d_M_CEE_PURE             // for /clr:pure
+    //-d_M_CEE_SAFE             // for /clr:safe
+    //-d_MANAGED                // for /clr
+
+// When using any /clr form, use:
+    //-d_M_CEE
+
+// When compiling with /GR, use:
+    //-d_CPPRTTI    //Enable Run-Time Type Information
+
+// When compiling with /GX, use:
+    //-d_CPPUNWIND  //Enable Exception Handling
+
+// When compiling with an /arch option, use:
+    //-d_M_IX86_FP=1    // For /arch:SSE
+    //-d_M_IX86_FP=2    // For /arch:SSE2
+
+// When compiling for Win64, use:
+    //-d_WIN64
+
+// When compiling with /Wp64, use:
+    //-d_Wp64           // 64-bit portability
+
+// Be sure to define your platform if any of the following apply:
+    //-d_M_ALPHA    // For DEC ALPHA platforms
+    //-d_M_IA64     // For Itanium 64-bit processors
+    //-d_M_X64      // For x64 processors
+
+// When compiling with the /RTC option, use:
+    //-d__MSVC_RUNTIME_CHECKS   // Using such checks
+
+// When compiling with /openmp, use:
+    //-d_OPENMP=200203  // OpenMP specification date
+
+// When compiling with /Zl, use:
+    //-d_VC_NODEFAULTLIB    // Omit default library name in *.obj file
+
+//__try_cast is like dynamic_cast (except the former throws where
+//the latter returns 0).
+
+-d__try_cast=dynamic_cast
+
++rw(__restrict)         // reserved word
+
+//Partial support for the "old" (VC++ 2003) Managed Extensions
+//syntax:
++rw( __gc, __value, __nogc, __pin, __ptr32, __ptr64 )
+
+-$  // $ can be used in identifiers
++rw( __allowed_on_parameter )
++rw(  __allowed_on_function )
++rw(  __allowed_on_typedecl )
++rw(  __allowed_on_return )
++rw(  __allowed_on_struct )
++rw( __allowed_on_function_or_typedecl )
++rw( __allowed_on_field )
++rw( __allowed_on_parameter_or_return )
++rw( __allowed_on_function )
+
+// Enable support for type trait operators:
++rw( *type_traits )
+
++e1942      // This Elective Note alerts the user to the non-standard
+            // way in which MS handles originally-dependent base classes.
+            // E.g.  template<class T> class A : T { ... x ... };
+            // Should T be searched for "x" during instantiation?
+            // the standard says "no", MS does.
+
+
+-header(co-msc80.h) // implicitly includes <typeinfo>. (Needed because
+                    // MSVC 8 implicitly declares class type_info.)

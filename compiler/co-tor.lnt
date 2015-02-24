@@ -1,0 +1,103 @@
+/* Date Stamp */ -d"_lint_co_tor_lnt=co-tor.lnt modified 8-May-2003"
+/* To document usage use: -message( "Using " _lint_co_tor_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+// co-tor.lnt
+// Compiler options for VxWorks Tornado
+
+-A                            // ANSI-C checking
++fdi                          // begin include search at including file
++fcp                          // use c++ not only for cpp and cxx ext.
++fcu                          // character is unsigned
++fva                          // variable argument size
++fwc                          // wchar_t is built in type
++ppw(option)                  // add preprocessor word
+-si4                          // Integers are 4 Byte long
+-sl4                          // Longs are 4 Byte long
+-sp4                          // Pointers are 4 Byte long
+-t2                           // Tab size is 2
+
+-width(0,3)                   // Output format no breaking and indent 3
+-hsb#3                        // Error display format
+-"format=%f(%l): Error %n: %m"// Error message format
+
+
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+        // are actually linting library headers.
+
+-esym(1512, unary_function<*>)         // from stl in file stl_function.h
+-esym(1512, binary_function<*>)        //            - "" -
+
+
+-emacro(611,clearerr)         // ignore errors in macro
+-emacro(666,clearerr)         // ignore errors in macro
+-emacro(740,clearerr)         // ignore errors in macro
+
+-emacro(534,putc)             // ignore errors in macro
+-emacro(611,putc)             // ignore errors in macro
+-emacro(666,putc)             // ignore errors in macro
+-emacro(740,putc)             // ignore errors in macro
+
+-emacro(534,putchar)          // ignore errors in macro
+-emacro(611,putchar)          // ignore errors in macro
+-emacro(666,putchar)          // ignore errors in macro
+-emacro(734,putchar)          // ignore errors in macro
+-emacro(740,putchar)          // ignore errors in macro
+
+-emacro(534,getchar)          // ignore errors in macro
+-emacro(611,getchar)          // ignore errors in macro
+-emacro(666,getchar)          // ignore errors in macro
+-emacro(740,getchar)          // ignore errors in macro
+
+-emacro(611,feof)             // ignore errors in macro
+-emacro(740,feof)             // ignore errors in macro
+
+-emacro(611,ferror)           // ignore errors in macro
+-emacro(740,ferror)           // ignore errors in macro
+
+-emacro(611,fileno)           // ignore errors in macro
+-emacro(613,fileno)           // ignore errors in macro
+-emacro(666,fileno)           // ignore errors in macro
+-emacro(740,fileno)           // ignore errors in macro
+
+-emacro(611,__sfileno)        // ignore errors in macro
+-emacro(613,__sfileno)        // ignore errors in macro
+-emacro(666,__sfileno)        // ignore errors in macro
+-emacro(740,__sfileno)        // ignore errors in macro
+
+-emacro(  26,va_start)        // ignore errors in macro
+-emacro( 522,va_start)        // ignore errors in macro
+-emacro( 534,va_start)        // ignore errors in macro
+-emacro( 746,va_start)        // ignore errors in macro
+-emacro(1055,va_start)        // ignore errors in macro
+
+
+//  Ignore these constructs..
+
+-d__extension__()=             // for va_xxx macros
+-d__attribute__=;              // from stl in file exception part one
+// -d((__noreturn__))=;        //          - "" -            part two
+                               // unfortunately this results in a bad option
+-d_IH=
+-d_SWI=
+-d_TRAP()=
+-d_SPL()=
+-d_GPL()=
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+-esym(534,cprintf,CTerminalIO::cprintf,printErr,xfclose)

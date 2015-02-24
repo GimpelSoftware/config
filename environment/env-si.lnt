@@ -1,0 +1,49 @@
+/* Date Stamp */ -d"_lint_env_si_lnt=env-si.lnt modified 25-May-2011"
+/* To document usage use: -message( "Using " _lint_env_si_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-si.lnt: The environment file to run PC-lint from within the
+    Source Insight Editor.
+
+    To set up Source Insight to run PC-lint from a custom command
+    do the following:
+
+    1)  Select custom commands from the options menu.
+
+	a)  Enter "PC-lint unit check" as the Name of the new command.
+
+        b)  Enter in the run edit box the following:
+
+                c:\lint\lint -u -ic:\lint std env-si %f
+
+            Where c:\lint is your lint directory.
+
+        c)  Check the following check boxes/radio buttons
+
+                Iconic Window
+                Capture Output
+                Save Files First
+                Parse Links in Output
+		File, then Line
+
+        d)  Enter the following expression in the Pattern edit box
+
+        ^\([a-zA-Z]:\>+\)\w+\([0-9]+\)
+
+	    This indicates that Messages are identified by:
+	    File-name blank line-number
+
+    In order to run PC-lint, select from the Options menu the
+    Custom Commands.  Then select PC-lint from the Command
+    and click on the run button.
+*/
+-"format=<%f> %l: %t %n: %m"
+-width(0)                   // don't wrap messages.
+   -hfa_3                   // 3-line messages (default)
+// -hf1                     // 1-line messages (alternative)

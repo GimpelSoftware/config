@@ -1,0 +1,24 @@
+/* Date Stamp */ -d"_lint_lib_rw_lnt=lib-rw.lnt modified 16-Aug-2005"
+/* To document usage use: -message( "Using " _lint_lib_rw_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+//  lib-rw.lnt
+//  Library Options file for Rogue Wave's Tools.h++
+
+-esym(534,*operator<<,*operator>>)  // ignore return value.
+-esym(1702,operator<<,operator>>)   // both member and non-member ops
+-elib(1707)     // static omitted from declaration of operator new
+-elib(1725)     // references as data members within classes
+-elibsym(1749)  // base class need not be virtual
+-elibsym(1512)  // non virtual destructor
+
+-header(lib-rw.h)   // force the inclusion of header for each module
+++template(2)        // allow recursive template definition
+
+// -dRW_MULTI_THREAD  // uncomment this if you are using multi-threading

@@ -1,0 +1,81 @@
+/* Date Stamp */ -d"_lint_co_mwwin32_lnt=co-mwwin32.lnt modified 19-Feb-2003"
+/* To document usage use: -message( "Using " _lint_co_mwwin32_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-mwwin32.lnt
+//    Compiler Options for Metrowerks Win32 x86 Compiler
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-mwwin32.lnt  source-file(s)
+//
+
+
+// NOTE: this configuration is for the default compiler settings
+
+// define preprocessor variables
+-d__MWERKS__=0x2405
+-d_WIN32=1
+
+// choose architecture here
+-d__INTEL__=1
+-d__MACH__=0
+
+-d_M_IX86=500
+-d_MSC_VER=0    //no ms
+
+// size and alignment
+-si4        // sizeof(int) is 4
+-ss2        // size of short is 2
+
+// for constructs like #if __ide_target("Debug")
+-d__ide_target()=1
+
++rw(__inline, _inline, inline)  // enable the (non-standard) _inline keyword by ignoring it
+
+-d_MSL_SIZE_T_H=1           // workaround for size_t
+-d"size_t=unsigned long"    // "
+-d__typeof__()=void*
+
++rw(__option)
+
+// while processing compiler (library) header files ...
+-wlib(1)        // sets the warning level within library headers to 1
+                // (no warnings, just syntax errors).  Comment out if you
+                // are actually linting library headers.  This
+                // option makes obsolete options of the form -elib(axxx) where
+                // xxx >= 400 which may be retained for historical reasons.
+-elib(652)      // suppress message about #define of earlier declared symbols
+-elib(762)      // suppress message about multiple identical declarations and
+-elib(760)      // suppress message about multiple identical macro defs
+-elib(553)      // undefined pre-processor variables are regarded as 0 without complaint
+
+-elib(46)       // supress message about field type should be int
+-elibsym(43)    // supress error about vacuous type for variable
+-elib(123)      // suppress errors about macro defined with arguments
+
+-efunc(2,ceil)  // suppress error about single quote in HLI
+-efunc(2,floor) // suppress error about single quote in HLI
+-efunc(2,modf)  // suppress error about single quote in HLI
+-efunc(2,expm1) // suppress error about single quote in HLI
+-efunc(2,ceil)  // suppress error about single quote in HLI
+
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+-esym(85, __float_huge,__float_nan,__double_huge,__extended_huge)     // are declared with no size in cmath

@@ -1,0 +1,78 @@
+/* Date Stamp */ -d"_lint_co_vage_lnt=co-vage.lnt modified 17-Nov-1997"
+/* To document usage use: -message( "Using " _lint_co_vage_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-vage.lnt
+//    Compiler Options for IBM Visual Age for OS/2 (32 bit)
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-vage.lnt  source-file(s)
+//
+
+// You may need to change the following definitions based on your system configuation
+
+-header(co-vage.h)  // defines __IBMC__ or __IBMCPP__ depending on C or C++
+-d__OS2__           // OS is OS/2
+-d_M_I386           //Machine is an Intel 386
+-d__SOM_ENABLED__=0
+
+	    // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+//std C
+-elib(652) //previously defined symbols
+-esym(773,va_start,va_end) //macros not parenthesized
++rw(_Optlink,_Builtin) //needed for os2 headers
++rw(_Seg16,_Far16,_System,_Pascal)   // also these are needed for os2 headers
++rw(_Fastcall,_stdcall,_Far32,_cdecl)
++rw(_Packed)
+-function(exit,_assert)   // _assert() like exit() does not return
+
+// C++
+-elib(537)  // repeated header files in lib. headers
+-elib(578)  // declaration of 'cord1' hides 'IPair::cord1(void) const' ipoint.hpp
+-elib(620)  // suspicious const.
+-elib(641)  // converting enum's to int
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(761)  // redundant typedef
+-elib(762)  // redundant declaration
+-elib(763)  // redundant declaration
+-elib(773)  // expression-like macro not parenthesized
+-elib(1029) // default argument redeclared
+-elib(1411) // member with different signature hides virtual member
+-elib(1509) // base class destructor is not virtual
+-elib(1510) // base class has no destructor
+-elib(1511) // member (rdbuf) hides nonvirtual member
+-elibsym(1512) //Base class destructor not virtual
+-elib(1516) // data member hides inherited member
+-elib(1704) // constructors have private access
+-elib(1707) // static assumed for member new (and delete) -ibuffer.hpp
+-elib(1712) // default constructor not defined for class
+-elib(1717) // empty prototypes
+-elib(1720) // assignment operator has non-const parameter
+-elib(1721) // unusual operator =() declaration
+-elib(1722) // assignment does not return a ref. to class
+-elib(1724) // argument to copy constructor should be const
+-elib(1725) // class member 'IResourceId::reslibCl' is a reference - ireslib.hpp
+-elib(1727) // inline function not previously declared inline
+-elib(1735) // default parameter within virtual function
+-elib(1736) // redundant access specifier
+
+-esym(534,ostream::operator<<,istream::operator>>)
+-esym(148,ostream::operator<<,istream::operator>>)
+
+// som
+-elib(659) // nothing follow '}' on line within an enum or struct
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir

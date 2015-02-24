@@ -1,0 +1,91 @@
+/* Date Stamp */ -d"_lint_env_bwin_lnt=env-bwin.lnt modified 30-Nov-1999"
+/* To document usage use: -message( "Using " _lint_env_bwin_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-bwin.lnt:  environment parameters for the Borland 4.0 C/C++
+    Interactive Development Enviroment running under Windows
+
+
+    If you are using the Borland Windows IDE and you wish to invoke
+    PC-lint from that environment then do the following:
+
+    Consult with your Borland documentation for information on
+    "Running other programs from the IDE" in chapter 1 of the
+    User's Guide for Borland C/C++.
+
+    Add the following entry (or some suitable variation) to the
+    Options | Tools dialog box (from the main menu select 'Options',
+    then 'Tools' then select 'New' entering the following information).
+
+    Name:  Lint
+
+    Path:  C:\LINT\LINT-NT.EXE
+    (modify the path as appropriate)
+
+    Command Line:  $SAVE CUR $NOSWAP $CAP MSG(Borl2Msg) -u -v
+	-iC:\LINT   -i$INC  std  env-bwin  $EDNAME
+
+    Menu Text:  &Lint
+    (the '&' allows selection via 'L' from the Tool menu).
+
+    Substitute your own lint path if different from the above.
+    This will save the current file ($SAVE CUR), will not switch
+    screens and will capture the output via a "filter" called
+    "BORL2MSG.EXE" provided with the Borland compiler (in a
+    directory such as C:\BORLAND\BIN).  After specifying unit checkout
+    (-u) and no verbosity (-v) and include directories (-i) there
+    appears 'std' specifying the file std.lnt.  This is the same as
+    appears in your lin.bat file.  The 'env-bwin' specifies this
+    file and finally the being-edited file appears as $EDNAME.
+
+    The following option, or portions thereof, may also prove helpful,
+    even critical:
+
+	$RSP(-D$DEF $DEPLIST())
+
+    This option must be placed after the 'env-bwin' because
+    'env-bwin' contains the crucial option +lnt($$$).  The
+    $RSP() creates a temporary 'response' file whose contents
+    appear between parentheses.  In this case the response
+    file contains a '-D' followed by a semi-colon separated list of
+    pre-processor variables to be defined ($DEF) followed by the
+    list of modules ($DEPLIST()).  The options between parentheses
+    could also work on the command line if it were not for the
+    limitation on the length of the command line.  Make sure you use
+    '-D' and not '-d';  the latter does not break on semicolon.
+    Obviously $DEPLIST() can be used to create a project check rather
+    than just a unit check as given above.  If $DEPLIST() doesn't work
+    for you, simply create a .LNT file containing each module name.
+    Use that name in place of $EDNAME above.
+
+    After you close things up and return to the main menu, you can
+    select the 'Tool' menu and your new entry should be there.
+    --------
+    CAUTION:  We have had a report that you can only run PC-lint as
+    a tool if all projects are closed.  If you attempt to add PC-lint
+    to the tools menu when a project is open and then attempt to lint
+    an open edit window, you get a memory fault that will cause you
+    to reboot the machine.
+
+    --------
+    For trouble shooting replace in the command line the
+		 $CAP MSG(BORL2MSG)
+    with
+		 $CAP EDIT
+    this will bring the unfiltered output from lint into an edit
+    window.  This is useful to, among other things, ensure that your
+    paths are correct.
+ */
+
+-"format=%(Error %f %l:%) %t %n %m"     // format required by Borl2Msg.exe
+-width(0)   // don't break lines
+-hF1        // always supply a File
++e900       // always produce at least one line of output
++lnt($$$)   // filename.$$$ is a lint file
+-t4         //  Presume that tabs are every 4 stops

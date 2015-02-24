@@ -1,0 +1,65 @@
+/* Date Stamp */ -d"_lint_co_byte_lnt=co-byte.lnt modified 10-Apr-2002"
+/* To document usage use: -message( "Using " _lint_co_byte_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-byte.lnt
+//    Compiler Options for the Bytecraft c6805 compiler
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-byte.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+        // are actually linting library headers.
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+
++rw( _to_brackets )     // activate _to_brackets
+-dRSP=_to_brackets
+-dSEI=_to_brackets
+-dCLI=_to_brackets
+
+-d"bits=unsigned char"      // bits is a built-in type
+
++fba                    // activate bit addressability (e.g., x.7)
+
+
+
+/* What follows is intended to cope with the following syntax:
+
+   #pragma portw variable @ location = value
+   #pragma portrw variable @ location = value
+   #pragma portrw variable @ location
+
+   Thus the first of these will be converted into:
+
+   portw( variable @ location = value )
+   etc.
+ */
+
++pragma(portw,macro)        // turn portw into a macro
++pragma(portrw,macro)       // turn portrw into a macro
++pragma(portr,macro)        // turn portr into a macro
+-esym(665,port*)            // suppress message about parenthesization
+-header(co-byte.h)          // pick up macro definitions.
+
+

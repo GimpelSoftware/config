@@ -1,0 +1,134 @@
+/* Date Stamp */ -d"_lint_co_tiger_lnt=co-tiger.lnt modified 23-Jan-2003"
+/* To document usage use: -message( "Using " _lint_co_tiger_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-tiger.lnt
+//    Compiler Options for ADI TigerSharc Compiler
+//
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint-nt  co-tiger.lnt  source-file(s)
+
+//    based on co-msc50.lnt with some items from co-ti320.lnt
+//    additions Copyright Roke Manor Research Ltd 2000
+
+
+-sb32       // 'Byte' is 32 bits
+-ss1        // short
+-si1        // int
+-sl1        // long
+-sf1        // float
+-sd1        // double (with our options)
+-sld2       // sizeof(long double) is 2.
+-sll2       // sizeof(long long) is 2.
+-sp1        // ptrs are 32 bits
+-sc1        // char
+
+-d__ADSPTS__=1
+-d__ADSPTS001__=1          // or __ADSPTS001A__
+-d__ANALOG_EXTENSIONS__=1
+-d__ECC__=1
+-d__EDG__=1
+-d__EDG_VERSION__=1
+//-d__NO_BUILTIN             // or not if using builtins
+//-d__SIGNED_CHARS__
+-d__STDC__
+-d__STDC_VERSION__=1999409L
+
++rw(section)
++rw(dm)
++rw(pm)
++rw(__inline)   // activate the __inline keyword
+
+	    // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+
+-e556       // ADI leave poor # indents all over the place
+-e537       // repeated include files are used
+
++fkp        // complain about non-KR extensions
+-e517       // ... except defined()
+            // while processing compiler (library) header files ...
+
+-elib(19)   // useless declarations (lone semicolons)
+-elib(123)  // function-like macro name used as non macro
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(514)  // allow #if <boolean> | <boolean>
+-elib(553)  // undefined preprocessor variables assumed 0
+-elib(726)  // extraneous comma in enum definition
+
+
+-format=%(%f(%l)\s:\s%)%t\s%n:\s%m
+
+        // error format similar to MSC
+        // Note that %c can also be used to specify column
+
+-e46    // allows bit-fields to be other than int or unsigned
+
++fan    // allow anonymous unions
+
++fdi    // Use directory of the including file
+
++fbo    // enable the bool type
+
++fll    // enable long long type
+
+-fdh    // do not append a .h to header names
+
+-ffb    // do not establish a separate scope for declares within for clauses
+
+-esym(123,min,max)  // allows users to use min, max as variables
+
+-d_inline=__inline  // _inline is the same as __inline
+
+-function(exit,_exit)   // _exit() is like exit()
+-function(exit,_assert)   // _assert() is like exit()
+
+-emacro(506,assert) // don't warn about constant value Boolean
+
+-emacro(734,putc)   // don't complain about items being too large.
+
+-emacro(415,_FP_SEG)  // access of out-of-bounds pointer
+-emacro(740,FP_SEG,FP_OFF)  // unusual casts
+
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+
+			// 796 and 797 (out-of-bounds errors).
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+
+-esym(628,eof)  // failure to provide argument information for eof()
+
+-esym(773,L_tmpnam)     // defined with an unparenthesized '+'
+
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fflush,_flsbuf,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+//  These are the wide char variants of printf-scanf family
+
+-wprintf( 1, wprintf )
+-wprintf( 2, fwprintf, swprintf )
+-wscanf( 1, wscanf )
+-wscanf( 2, fscanf, swscanf )
+

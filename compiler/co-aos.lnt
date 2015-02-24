@@ -1,0 +1,35 @@
+/* Date Stamp */ -d"_lint_co_aos_lnt=co-aos.lnt modified 28-May-2008"
+/* To document usage use: -message( "Using " _lint_co_aos_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+// co-aos.lnt
+// compiler options file for the Data General AOS/VS
+
+
+-$                   // establish '$' as an identifier
+-d$builtin=extern    // translate $builtin as extern
+-d$asm=              // ignore $asm
+-d$algn()=           // ignore $algn(integer) constructs
+
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.  Feel free to add to or subtract
+//  from this list.
+
+-esym(534,close,creat,fclose,fflush,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+-wlib(1)    // Sets warning level within library headers to 1
+	    // (i.e. suppress Warning and Info messages within libraries)
+	    // If you are actually checking library code you may want
+	    // to comment out this option.

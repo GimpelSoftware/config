@@ -1,0 +1,119 @@
+/* Date Stamp */ -d"_lint_co_tc_lnt=co-tc.lnt modified 9-Feb-2000"
+/* To document usage use: -message( "Using " _lint_co_tc_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-tc.lnt
+//    Compiler Options for Turbo C, Turbo C++ and Borland C++
+
+-ctc
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-tc.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(726)  // inhibits error involving extraneous comma in enumerations
+            // within library header graphics.h
+-elib(553)  // use of undefined preprocessor variables like #if __STDC__
+            // within string.h
+-elib(123)  // stdarg.h defines __size() and stdio.h uses __size parameter
+-elib(579)  // Borland C++ compensates for sub int params in stdarg.h
+            // this is still a dangerous nonportable practice for user programs
+-elib(743)  // '\x80' is used in limits.h
+
+-emacro(507,FP_OFF)  // inhibit loss of information message.
+--emacro(507,offsetof)  // inhibit loss of info message in macro
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(792,assert)  // inhibit void cast of void message
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+			// 796 and 797 (out-of-bounds errors).
+
++rw(_export,_import)    // needed especially for Windows programming
+-sld10          // sizeof(long double) is 10.
+-elib(770)  // WORDREGS, BYTEREGS, REGS, SREGS  defined in both
+            // bios.h and dos.h
+-etd(origin) // this will inhibit complaints about 'origin' type differences
+            // this occurs when both bios.h and dos.h contribute the
+            // identical struct's to a program.
+-e793       // inhibit 'ANSI limit reached' --
+            // limits are impractically low with Borland headers
+-function(exit,_exit)   // _exit() is like exit()
+-function(exit,__assertfail)  // so is __assertfail()
+-emacro(570,disable,_disable,enable,_enable)  // allow (char) 0xFA
+-emacro(734,putc)   // don't complain about items being too large.
+-d_asm=asm          // Borland accepts both "_asm" and "asm"
+-d__asm=asm         // and __asm
+        // We now support __declspec directly so that the following
+        // option is now commented out.  If trouble ensues you can
+        // once again disable __declspec through this option.
+        // -d__declspec()= // ignore this construct
+-d_declspec=__declspec  // the single '_' version is occasionally used
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fflush,fprintf,fputc)
+-esym(534,_fputc,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+-esym(534,__assertfail)
+
+
+// The following options are required by most compilers to
+// noiselessly process iostream.h
+
+-elib(1717) //empty prototypes
+-elib(522) //function return value ignored
+-elib(1053) //prototypes cannot be distinguished
+-elib(1721) //unusual operator =() declaration
+-elib(1720) //assignment op has non-const parameter
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(641)  // converting enum's to int
+-elib(537)  // repeated include file (ios.h)
+-elib(1511) // member (rdbuf) hides nonvirtual member
+-elib(1712) // default constructor not defined for class
+-elib(1736) // redundant access specifier
+-esym(1702,operator<<,operator>>)  // both a member and an ordinary function
+
+// These functions return things that are frequently ignored.
+
+-esym(534,ostream::operator<<,istream::operator>>)
+
+// The following additional options seem to be needed.
+
+-fdc       // do not Distinguish plain Char as a unique type.
+	   // i.e. char is either signed char or unsigned char
+-elib(783)      // line in config.h does not end in new-line
+-elib(522)      // doesn't use the return value of underflow();
+-elib(1066)  // same name declared as "C" and not "C"
+-elib(1724) //argument to copy construct should be const ref
+-elib(1722) //assignment operator does not return ref
+-efile(766,mem.h)  //included by iostream.h but not really used
+-elib(1704)   // constructor with private access declaration
+-elib(1708,1709)   // minor C/C++ declaration conflict
+-elib(1735)   // default parameter within virtual function
+
+
+// Using Borland classlib, OWL or TurboVision?  Then activate any
+// or all of the following by removing the comment:
+//  lib-bcl.lnt      // Borland Class Library
+//  lib-owl.lnt      // Borland Object Windows Library
+//  lib-tv.lnt       // Borland Turbo-Vision library

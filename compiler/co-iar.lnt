@@ -1,0 +1,64 @@
+/* Date Stamp */ -d"_lint_co_iar_lnt=co-iar.lnt modified 22-Dec-2003"
+/* To document usage use: -message( "Using " _lint_co_iar_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-iar.lnt
+//    Compiler Options for IAR C
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-iar.lnt  source-file(s)
+//
+	    // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(537)  // repeated include files
+-elib(677)  // sizeof used within preprocessor statement
+
+-$              // enable $
+-d_argt$()=0    // for limits.h
++fba            // bit addressability flag
++fcu            // chars are unsigned
+
++rw(_bit)                 // activate the _bit datatype
+-dbit=_bit                // #define bit as _bit
++rw(_gobble)              // activate the _gobble keyword
++rw(_to_brackets)
++dinterrupt=_to_brackets  // ignore "interrupt(...)"
+
++dANSI_main=
++dbanked_func=
++dC_task=
++dfar=
++dfar_func=
++dhuge=
++dhuge_func=
++dmonitor=
++dnear=
++dnear_func=
++dno_init=
++d__no_init=
++dtiny=
++dtiny_func=
++dversion_2=
+
++d"sbit=unsigned char"    // nearest approximation
++d"sfr=_ignore_init unsigned char"     // nearest approximation
++d"sfrp=_ignore_init unsigned short"   // nearest approximation
+
+-d__TID__=0x2410        // may need to be changed depending upon chip
+//-d__TID__=0x2400
+//-d__TID__=0x2420
+-d__IAR_SYSTEMS_ICC     // identify compiler
++rw(C_task)             // keyword
++rw(_ignore_init)       // needed for sfr and sfrp above

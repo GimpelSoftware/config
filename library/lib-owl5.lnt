@@ -1,0 +1,76 @@
+/* Date Stamp */ -d"_lint_lib_owl5_lnt=lib-owl5.lnt modified 20-Jun-1996"
+/* To document usage use: -message( "Using " _lint_lib_owl5_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+//  lib-owl5.lnt
+//  Library Options file for Borland's Object Windows Library
+
+lib-bcl5.lnt     // inherit Library options for CLASSLIB
+                   // this can be done here or in co-bc5.lnt
+
+-e708           // union initialization by a lot of different macros.
+-elib(46)       // Field type should be int (struct tagDCB in windows.h)
+-esym(534,SendMessage) // Ignoring return value of SendMessage in library
+-elib(723)      // macro starts with '='
+-elib(747)      // Significant prototype coercion in call to SendMessage()
+-elib(806)      // small signed bit field
+-elib(1411)     // member hides virtual member
+-elib(1501)     // an array with a null length
+-elib(1505)     // no explicit access specifier
+-elib(1509)     // base class destructor is not virtual (TNSSortedCollection)
+-elib(1510)     // base class 'TStreamable' has no destructor
+-elibsym(1512)  // destructors for library base classes are often not virtual
+-elib(1515)     // class contains member w/o a default constructor
+-elib(1706)     // unusual declaration
+-elib(1730)     // uses both 'struct' and 'class' for the same class
+
+//  Version 4.5 additions
+
+-dBI_PLAT_MSW                // need to designate a platform
++fiq                         // ignore nominal qualification differences
+-esym(1061,TGdiBase::Handle) // we say access is not permitted?
+-esym(665,EV_MESSAGE)        // allow expressions to be passed to EV_MESSAGE
+-elib(50)                    // taking address of non-lvalue in headers
+-elib(618)                   // storage class specified after const
+-emacro(651,EV_MESSAGE)                   // contains confusing initializer
+-emacro(1516,DECLARE_RESPONSE_TABLE)      // data member hides inherited name
+-emacro(1516,DEFINE_RESPONSE_TABLE_ENTRY) // hides inherited member
+-emacro(740,DECLARE_RESPONSE_TABLE)       // contains unusual pointer cast
+-emacro(740,DEFINE_RESPONSE_TABLE*)       // contains unusual pointer cast
+
+//   These defines are needed to get things off the ground
+-d_RTLDLL
+-d_BIDSDLL
+-d_OWLDLL
+-d_OWLALLPCH
+
+
+// Version 5.0 additions
+
+-elib(30)               // using pointer cast to initialize an enum - x3j16:5.19
+-elib(605)              //increase in pointer capability
+-elib(507)              // size incompatability (treewnd.h)
+-elib(732)              // loss of sign in argument 1 2 and 3 ( MkRGB(r,g,b) )
+
+-emacro(630,DECLARE_RESPONSE_TABLE)  // ambiguous reference to TEventInfo
+-emacro(648,EV_HDN_BEGINTRACK)       // overflow in computing constant ( 0U - 300U )
+-emacro(648,EV_HDN_DIVIDERDBLCLICK)  // overflow in computing constant ( 0U - 300U )
+-emacro(648,EV_HDN_ENDTRACK)         // overflow in computing constant ( 0U - 300U )
+-emacro(648,EV_HDN_ITEMCHANGED)      // overflow in computing constant ( 0U - 300U )
+-emacro(648,EV_HDN_ITEMCHANGING)     // overflow in computing constant ( 0U - 300U )
+-emacro(648,EV_HDN_ITEMCLICK)        // overflow in computing constant ( 0U - 300U )
+-emacro(648,EV_HDN_TRACK)            // overflow in computing constant ( 0U - 300U )
+-emacro(651,EV_COMMAND)              // potentially confusing initializer
+-emacro(651,END_RESPONSE_TABLE)      // potentially confusing initializer
+-emacro(651,EV_WM_SIZE)              // potentially confusing initializer
+-emacro(651,EV_CBN_SELCHANGE)        // potentially confusing initializer
+-emacro(651,EV_BN_CLICKED)           // potentially confusing initializer
+-emacro(1038,DECLARE_RESPONSE_TABLE) // type not found in scope, nested type used
+
+-esym(630,TPlacement)   //ambiguous reference

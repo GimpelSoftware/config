@@ -1,0 +1,75 @@
+/* Date Stamp */ -d"_lint_env_vc2_lnt=env-vc2.lnt modified 7-Dec-1998"
+/* To document usage use: -message( "Using " _lint_env_vc2_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-vc2.lnt:
+    environment parameters for Microsoft's Visual C++ 2.x WorkBench
+
+    If you are using the Microsoft Visual Workbench and you wish to invoke
+    PC-lint from that environment then do the following.
+
+    Consult the appropriate Microsoft documentation in the "Visual
+    Workbench User's Guide", Chapter "Customizing Visual Workbench",
+    OR consult the on-line Help, "Books Online", the following section:
+
+	User's Guide
+	    Visual C++ User's Guide
+		Part 1 Using Visual C++
+		    Chapter 17  Customizing Visual C++
+			Customizing the Tools Menu
+			    Adding Commands to the Tools Menu
+
+    You may also check on line help for the format of error messages.
+
+    For example, to add a unit check-out facility to the tools bar do
+    the following:
+
+    1.  From the Tools Menu choose "Customizing"
+	The Customizing Dialog Box appears
+    2.  Select the "Tools" tab
+    3.  Choose "Add"
+	The Add Tool dialog box appears requesting a "Command"
+    4.  Type "C:\lint\lint-nt.exe" or equivalent and hit Enter.
+    5.  You will now be able to edit the fields of this Tool.
+	Modify them so that they approximate the following:
+
+	Menu Text           PC-lint (unit check)
+	Command Line        C:\LINT\LINT-NT.EXE
+	Arguments           -iC:\LINT -u std.lnt env-vc2.lnt $File
+	Initial Directory   $FileDir
+
+	_  Prompt for Arguments
+	X  Redirect to Output Window     _  Close Window on Exit
+    6.  Select Close to return to the main environment.
+
+    This will result in the Tools menu containing the additional item
+    "PC-lint (unit check)".
+    Checking 'X' on 'Redirect to ...' is important because in this way you
+    can advance from error to error using the F4 key (Shift F4 to reverse)
+    or, less handily, using the "Next Error" ("Prev Error") entries in
+    the "Search" menu.
+
+    Note that by providing an "Initial Directory"
+    the containing directory can have a std.lnt that overrides the
+    global std.lnt.
+
+ */
+
+
+-"format=%(%F(%l):%) %t %n: %m"     //  Messages will contain
+	//  file information (%F), the line number (%l), the
+	//  message type (%t)  message number (%n) and message text (%m).
+
+-hF2    //  Make sure we ALWAYS provide file information ('F') and use 2
+	//  lines (line in error plus message).
+
+-width(0) //  don't break messages at any particular width
+-t4       //  Presume that tabs are every 4 stops
++e900     //  issue a message at termination.
+

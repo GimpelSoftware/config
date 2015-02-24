@@ -1,0 +1,56 @@
+/* Date Stamp */ -d"_lint_co_in_lnt=co-in.lnt modified 13-Jan-1998"
+/* To document usage use: -message( "Using " _lint_co_in_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-in.lnt
+//    Compiler Options for Intel iC-86, iC-286
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-in.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(123)  // function-like macro name used as non-macro
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+
+-d_ARCHITECTURE_=86   // this preprocessor symbol is pre-defined
+-d_OPTIMIZE_=1        // this preprocessor symbol is pre-defined
+-d_ROM_=0             // this preprocessor symbol is pre-defined
+
++fce                  // continue-on-error true
+-dalien=pascal        // nearest meaning to alien
+-dreadonly=const      // nearest meaning to readonly
+// we formerly had -dselector=void*, replaced by:
+-header(lib-in.h)
++rw(far,near)         // extra reserved words needed
+-$                    // accept $ in identifiers
+-sld8                 // sizeof(long double) is 8
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+			// 796 and 797 (out-of-bounds errors).
+-emacro(413,offsetof)  // use of NULL pointer creates a stir

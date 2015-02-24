@@ -1,0 +1,53 @@
+/* Date Stamp */ -d"_lint_au_lp64_lnt=au-lp64.lnt modified 11-Jun-2009"
+/* To document usage use: -message( "Using " _lint_au_lp64_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+// au-lp64.lnt -- Author options - 64-bit issues for the LP64 model
+
+//      The LP64 model utilizes the following sizes:
+//          long long -> 64 bits
+//          pointers  -> 64 bits
+//          long      -> 64 bits
+
+/*
+    This options file can be used to explicitly activate checks
+    for 64-bit related issues.
+
+    You can use this file directly when linting your programs as in:
+
+    lin  au-lp64  files
+
+ */
+
+-sll8
+-sp8
+-sl8
+-si4
+
+/*  In the 64-bit models, ptrdiff_t is 64 bits, signed.  */
+
+    +fdl                            // pointer differences are long
+
+/*  In the 64-bit models, size_t is 64 bits, unsigned.  */
+
+    +fzu                            // sizeof returns
+    +fzl                            // an unsigned long
+
+/*  Casting a 64-bit address to or from a 32-bit integer type can
+    result in lost information or an invalid pointer value, depending
+    on the system.
+
+    i32 = (int) p64;                // cast from pointer to int (N 923)
+    p64 = (int *) i32;              // cast from int to pointer (N 923)
+ */
+
+    +estring(923,int)
+    +estring(923,signed int)
+    +estring(923,unsigned int)
+
+au-64.lnt

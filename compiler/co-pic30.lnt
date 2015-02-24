@@ -1,0 +1,88 @@
+/* Date Stamp */ -d"_lint_co_pic30_lnt=co-pic30.lnt modified 29-Jun-2010"
+/* To document usage use: -message( "Using " _lint_co_pic30_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-pic30.lnt
+//    Compiler Options for the Microchip MPLAB C30 C Compiler
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-pic30.lnt  source-file(s)
+//
+          // while processing compiler (library) header files ...
+-wlib(1)  // sets the warning level within library headers to 1
+        // (no warnings, just syntax errors).  Comment out if you
+        // are actually linting library headers.  This
+        // option makes obsolete options of the form -elib(axxx) where
+        // xxx >= 400 which may be retained for historical reasons.
+
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-elib(553)  // undefined pre-processor variables are regarded as
+            // 0 without complaint
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+//+fie   // uncomment if "integer model for enums" is desired
+-si2     // size of int 2 bytes
+-sl4     // size of long 4 bytes
+-sp2     // size of pointers 2 byte
+-e788
+-esym(793, external identifiers)
+
+//// These options are partially copied from co-gnu.lnt
++ppw(ident)     // Tolerate #ident
++rw(__inline)   // enable the (non-standard) __inline keyword
+
+// For non-ANSI compilers we suppress messages 515 and 516
+// for functions known to have variable argument lists.
+// For ANSI compilers, header files should take care of this.
+-esym(515,fprintf,printf,sprintf,fscanf,scanf,sscanf)
+-esym(516,fprintf,printf,sprintf,fscanf,scanf,sscanf)
+
+-elib(1717) // empty prototypes
+-elib(522)  // function return value ignored
+-elib(1053) // prototypes cannot be distinguished
+-elib(1721) // unusual operator =() declaration
+-elib(1720) // assignment op has non-const parameter
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(641)  // converting enum's to int
+-elib(537)  // repeated include file (ios.h)
+-elib(1511) // member (rdbuf) hides nonvirtual member
+-elib(1712) // default constructor not defined for class
+-esym(1702,operator<<,operator>>)
+-elib(747)  // significant prototype coercion
+-elib(740)  // unusual pointer casts
+-elib(1029) // default argument repeated -- can't dist. char, signed char
+-elib(1055) // call to rdbuf() questioned?
+-elib(1708,1709) // minor C/C++ declaration conflict
+-elib(763)   // redundant declaration
+-elib(1510)  // base class has no destructor
+-elib(1516)  // data member hiding inherited member
+-elib(1730)  // class/struct inconsistancy
+-elib(569)   // loss of information 8-bits - 7bits
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+-d__attribute__()=      // ignore this keyword and following parenthetical
+-dasm()=                // support inline assembly code by ignoring asm(...)
+-d__extension__=        // ignore this keyword
+-d__asm__=
+
+                                  // ignore messages for C30 builtins...
+-esym(718,__builtin_*)            // calling an undeclared function
+-esym(746,__builtin_*)            // calling without a visible prototype

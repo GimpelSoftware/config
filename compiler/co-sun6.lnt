@@ -1,0 +1,70 @@
+/* Date Stamp */ -d"_lint_co_sun6_lnt=co-sun6.lnt modified 10-Jun-2005"
+/* To document usage use: -message( "Using " _lint_co_sun6_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-sun6.lnt
+//    Compiler Options for the Sun Forte C++ Enterprise Edition 6
+
+//    This file contains options to allow FlexeLint to process source
+//    files for the Forte C++ Compiler.  It is used as follows:
+//
+//    flexelint  co-sun6.lnt  source-file(s)
+//
+
+-csun
+
+--i%FORTE%/include/CC/Cstd    // Set an include directory
+--i%FORTE%/include/CC         // Set an include directory
+--i%FORTE%/include/CC/rw7     // Set an include directory
+--i%FORTE%/include/cc         // Set an include directory
+--i/usr/include
+// Run the Sun C++ compiler with your usual build options and
+// add the option -dryrun.
+// Verify that CC's -I options match Lint's and adjust Lint's
+// accordingly (You may be able to simply copy and paste).
+// CC will always implicitly search /usr/include last.
+
++fdi         // Use the directory of the including file
+-d__SunOS_5_6
+-d__SUNPRO_CC=0x530
+-dunix
+-dsun
+-dsparc
+-d_sparc
+-d__sparc
+-d__unix
+-d__sun
+-d__BUILTIN_VA_ARG_INCR
+-d__SVR4
+-d__SUNPRO_CC_COMPAT=5
+
+//-di386      // needed for some Unix's
+//-a#machine(i386) an option to  #assert's machine(i386)  (SVR4 facility).
+++template(200)   //  allow searches in formerly dependent base classes
+
++fwc        // wchar_t is built-in
+
+-elib(2)    // unclosed quotes in Unix's nserve.h
+-elib(123)  // size is both a variable and a macro with args
+-wlib(1)    // Sets warning level within library headers to 1
+            // (i.e. suppress Warning and Info messages within libraries)
+            // If you are actually checking library code you may want
+            // to comment out this option.
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.  Feel free to add to or subtract
+//  from this list.
+
+-esym(534,close,creat,fclose,fflush,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)

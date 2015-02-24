@@ -1,0 +1,136 @@
+/* Date Stamp */ -d"_lint_co_ibm32_lnt=co-ibm32.lnt modified 16-Aug-2005"
+/* To document usage use: -message( "Using " _lint_co_ibm32_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-ibm32.lnt
+//    Compiler Options for IBM C Set/2 for OS/2 (32 bit)
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-ibm32.lnt  source-file(s)
+//
+
+
+
+-cibm32         // defines __IBMC__ or __IBMCPP__ depending on C or C++
+-d__OS2__
+-d__FUNCTION__=""   // non-standard preprocessor macro
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-dNULL=0    // predefine the NULL pointer
+-elib(46)   // short used in field type
+-elib(537)  // repeated header files in lib. headers
+-elib(767)  // redefining macros within header files
+
++rw(_Optlink,_Builtin)    // establish these as reserved words
++rw(_Seg16,_Far16,_System,_Pascal)   // also these are needed for os2 headers
+-si4                      // size of int is 4
+-sp4                      // size of all pointers is 4
+-esym(553,FOR_EXEHDR)     // macro tested w/o being defined
+-d__offsetof(,)=sizeof(int)   // define built-in macro
+-function(exit,_exit)     // _exit() is like exit()
+-function(exit,_assert)   // _assert() is also like exit()
+
+-emacro(734,putc)   // don't complain about items being too large.
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+                        // 796 and 797 (out-of-bounds errors).
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+-esym(534,__memcpy,__memset)
+-function(ferror)
+
+//  These are the wide char variants of printf-scanf family
+
+-wprintf( 1, wprintf )
+-wprintf( 2, fwprintf, swprintf )
+-wscanf( 1, wscanf )
+-wscanf( 2, fwscanf, swscanf )
+
+// The following options are required by most compilers to
+// noiselessly process iostream.h
+
+-elib(1717) //empty prototypes
+-elib(522) //function return value ignored
+-elib(1053) //prototypes cannot be distinguished
+-elib(1721) //unusual operator =() declaration
+-elib(1720) //assignment op has non-const parameter
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(641)  // converting enum's to int
+-elib(537)  // repeated include file (ios.h)
+-elib(1511) // member (rdbuf) hides nonvirtual member
+-elib(1712) // default constructor not defined for class
+-elib(1736) // redundant access specifier
+-esym(1702,operator<<,operator>>)  // both a member and an ordinary function
+
+// These functions return things that are frequently ignored.
+
+-esym(534,ostream::operator<<,istream::operator>>)
+
+// The following additional options seem to be needed.
+
+-esym(148,PageSettings::PageSettings) //member PageSettings previously declared (inotebk.hpp)
+-elibsym(1512) //Base class destructor not virtual
+
+-elib(578)  // declaration of 'cord1' hides 'IPair::cord1(void) const' ipoint.hpp
+-elib(601)  // expected type int assumed
+-elib(620)  // suspicious const.
+-elib(747) //significant prototype coercion
+-elib(740) //unusual pointer casts
+-elib(763)  // redundant declaration
+-elib(773)  // expression-like macro not parenthesized
+-elib(783)  // line does not end with a new line
+-elib(793)  //exceeded macro limit -- need to do this because of OS/2 Toolkit headers
+-elib(1029) //default argument repeated -- can't dist. char, signed char
+-elib(1038) // type B not found type A::B assumed (class B { class A{};}; )
+-elib(1055) //call to rdbuf() questioned?
+-elib(1411) // member with different signature hides virtual member
+-elib(1509) // base class destructor is not virtual
+-elib(1510) // base class has no destructor
+-elib(1516) // data member hides inherited member
+-elib(1704) // constuctor has private access specification
+-elib(1706) // Declaration with scope operator is unusual within a class
+-elib(1707) // static assumed for member new (and delete) -ibuffer.hpp
+-elib(1708,1709) // minor C/C++ declaration conflict
+-elib(1722) // assignment operator for class does no return a reference to the class
+-elib(1724) //arg. to copy constructor should be const
+-elib(1725) // class member 'IResourceId::reslibCl' is a reference - ireslib.hpp
+-elib(1729) // initializer inversion detected for member
+-elib(1735)   // default parameter within virtual function
++fwu        //enable built-in wchar_t and, also, let it be unsigned.
+-d__wchar_t //tell headers about this
+++template(1) // Aggresively compile templates
+-rw(using)  // IBM's header files have a couple of variables named 'using'
+
+// Message formatting for use with IBM WorkFrame/2, Enhanced PM Editor,
+// and RimStar Programmer's Editor.
+// This message formatting style makes the PC-Lint output look like the
+// IBM C/C++ compiler output.
+-hFmn1
+-width(255,5)
+-"format=%f(%l:%C) : %t %n: %m"
+

@@ -1,0 +1,95 @@
+/* Date Stamp */ -d"_lint_env_tide_lnt=env-tide.lnt modified 7-Dec-1998"
+/* To document usage use: -message( "Using " _lint_env_tide_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-tide.lnt:  environment parameters for the Turbo/Borland
+    Interactive Development Enviroment running under DOS.
+    This should NOT be used with the Windows-hosted environment
+    provided by Borland C 4.00.
+
+    If you are using the Turbo/Borland IDE and you wish to invoke
+    PC-lint from that environment then do the following:
+
+    Add the following entry (or some suitable variation) to the
+    'Transfer Table' (from the main menu select Options, then Transfer,
+    then Edit a blank entry entering the following information).
+
+    Program Title:  ~Lint
+    (the '~' allows selection via 'L' from the ≡ menu).
+
+    Program Path:  C:\LINT\LINT2.EXE
+    (modify the path as appropriate -- see Note below)
+
+    Command Line:  $SAVE CUR $NOSWAP $CAP MSG(LINT2MSG) -u -v
+	-iC:\LINT   -i$INC  std  env-tide  $EDNAME
+
+    Substitute your own lint path if different from the above.
+    The file std.lnt is the same as appears in your lin.bat file.
+    (the ".lnt" is assumed).  This will save the current file
+    ($SAVE CUR), will not switch screens and will capture
+    the output via a "filter" called "LINT2MSG.EXE" provided on
+    our distribution diskette.  We recommend that you copy this filter
+    into your Turbo/Borland BIN directory (e.g. C:\BORLANDC\BIN).
+    This will place the cursor at the exact character in error.
+
+    You may also select a hot key to trigger this command;
+    we suggest Shift-F9 obtained by selecting a "radio button"
+    on the right column.
+
+    This will only do a unit checkout.  To do an entire project,
+    set up a similar command (without the -u option) and instead of
+    using '$EDNAME' use 'project' where file project.lnt contains
+    the name of each file in your project.
+
+    Note: the $CAP MSG(LINT2MSG) will dump information into a message
+    area where you will have the convenience of seeking the next message
+    (Alt-F8) or previous message (Alt-F7).  For debugging purposes you
+    may want to dump the entirety of the PC-lint output into an edit
+    window using $CAP EDIT.
+
+    If for some reason you do not have LINT2MSG.EXE (available from the
+    lint distribution diskette) you may use an existing Borland filter
+    called IMPL2MSG.EXE.  Simply use the option: $CAP MSG(IMPL2MSG) in
+    place of $CAP MSG(LINT2MSG).  The disadvantage is that you would not
+    obtain column indication.  You would then need to use a different
+    lint error message format:  You could use:
+
+    -"format=Error %(%F %l: %)%t %n %m"     // format required by IMPL2MSG
+
+    -------------------
+
+    Note:  The executable \LINT\LINT2.EXE is the non-DOS-extended
+    version of the product and can be used in some circumstances
+    where the DOS-extended version LINT.EXE cannot.
+
+    For example you can't run LINT.EXE from IDE which in turn was
+    run from a DOS prompt from windows.
+
+    If you attempt to run LINT.EXE from within the Borland IDE, you may
+    receive a message like the following:
+
+    Fatal Error TNT.10118: Can't load EXP file: C:\LINT\LINT.EXE
+    Memory error: insufficient physical memory available
+
+    This is a problem with the Borland IDE which may be surmounted
+    by setting an environment variable as follows:
+
+    SET DPMIMEM=MAXMEM 2000
+
+    This is read by the IDE (bc) on startup and restricts the IDE to
+    using 2000K (two mega bytes) of memory.  Adjust the amount to your
+    situation.
+
+ */
+
+-"format=%(%l %c %f %)%t %n %m"     // format required by LINT2MSG
+-width(0)   // don't break lines
+-hFmn1      // always supply a File but no macro
+-t4         //  Presume that tabs are every 4 stops
+

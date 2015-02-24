@@ -1,0 +1,74 @@
+/* Date Stamp */ -d"_lint_co_xc8_lnt=co-xc8.lnt modified 28-Mar-2014"
+/* To document usage use: -message( "Using " _lint_co_xc8_lnt ) */
+
+//    co-xc8.lnt
+//    Compiler Options for the Microchip MPLAB XC8 C Compiler
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-xc8.lnt  source-file(s)
+//
+
+
+// Common C Interface
+co-cci.lnt
+
+-d__XC
+-d__XC8
+-d__XC8_VERSION
+-d_PIC12
+-d_PIC12E
+-d_PIC14
+-d_PIC14E
+-d_PIC18
+
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+          // while processing compiler (library) header files ...
+-wlib(1)  // sets the warning level within library headers to 1
+          // (no warnings, just syntax errors).  Comment out if you
+          // are actually linting library headers.  This
+          // option makes obsolete options of the form -elib(axxx) where
+          // xxx >= 400 which may be retained for historical reasons.
+
+// XC8 keywords.
+
++rw(rom)
++rw(ram)
++rw(code)
++rw(near)
++rw(far)
+
+
+
++fdr        // deduce return type of a function.
++fem
++fan        // allow anonymous unions.
++fas        // allow anonymous structus.
+-si2        // size of int 2 bytes
+-sl4        // size of long 4 bytes
+-sp2        // size of pointers 2 byte
+-e788
+
+-e109       // short long types are valid
+-e146       // we support binary constants
+-e617
+//-e534     // uncomment if "ignoring return value" warning is undesired.
+
+
+-esym(515,fprintf,printf,sprintf,fscanf,scanf,sscanf)
+-esym(516,fprintf,printf,sprintf,fscanf,scanf,sscanf)
+
+-elib(125)  // static keywords in prototype arguments
+
+
+// ignoring inline assembly.
+
+-d_asm=_to_semi
+-d_endasm=;
++rw(_to_semi)

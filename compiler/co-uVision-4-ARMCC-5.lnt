@@ -1,0 +1,113 @@
+/* Date Stamp */ -d"_lint_co_uVision_4_ARMCC_5_lnt=co-uVision-4-ARMCC-5.lnt modified 12-Jul-2013"
+/* To document usage use: -message( "Using " _lint_co_uVision_4_ARMCC_5_lnt ) */
+
+// co-uVision-4-ARMCC-5.lnt
+// Compiler Options for ARM C/C++ 5 as shipped with uVision
+//
+// This file contains options to allow PC-lint to process source
+// files for your compiler.
+//
+// For information on the armcc options used here, see:
+//
+// http://infocenter.arm.com/help/topic/com.arm.doc.dui0491c/Cihbejbb.html
+
+/***********       Begin Preprocessing Options         ***********/
+//
+// Common preprocessing options:
+
++libh(predefined_macros_for_PC-lint.h)
+-header(predefined_macros_for_PC-lint.h) // IMPORTANT: This  header file needs to be generated before you try to use Lint.
+    //
+    // Explanation: The ARMCC compiler defines many macros for which there
+    // are, by default, no #define directives. Lint must be made aware
+    // of these macros in order to parse system headers correctly (which
+    // is necessary in order to process project code correctly).
+    //
+    // To generate the header: In your project directory, locate the
+    // directory containing compiler output, and the ".__i" files therein.
+    // For example, in the "Hello" example shipped with uVision, after
+    // building the project, we have:
+    //
+    //      c:\Keil\ARM\Examples\Hello>dir /B Obj\*.__i
+    //      hello.__i
+    //      retarget.__i
+    //      serial.__i
+    //      system_stm32f10x.__i
+    //
+    //      c:\Keil\ARM\Examples\Hello>
+    //
+    // These files show how each source file is compiled. Example:
+    //
+    //      c:\Keil\ARM\Examples\Hello>type Obj\hello.__i
+    //      -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork
+    //      -I C:\Keil\ARM\RV31\INC
+    //      -I C:\Keil\ARM\CMSIS\Include
+    //      -I C:\Keil\ARM\Inc\ST\STM32F10x
+    //      -DSTM32F10X_MD -o ".\Obj\hello.o" --omf_browse ".\Obj\hello.crf" --depend ".\Obj\hello.d" "Hello.c"
+    //      c:\Keil\ARM\Examples\Hello>
+    //
+    // Open this file in your favorite text editor, and delete everything
+    // from the "-o" option to the end.
+    // To generate preprocessor macros, we'll need:
+    //      -  an empty source file (call it "t.c").
+    //      - the option "--list_macros".
+    // By default, output will go to the console. We can use the -o option
+    // to send it to a named file.
+    //
+    // So now our command line is:
+    //
+    //      -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork
+    //      -I C:\Keil\ARM\RV31\INC
+    //      -I C:\Keil\ARM\CMSIS\Include
+    //      -I C:\Keil\ARM\Inc\ST\STM32F10x
+    //      -DSTM32F10X_MD
+    //      --list_macros t.c
+    //      -o predefined_macros_for_PC-lint.h
+    //
+    // Save that to a file (say, "args.txt") in the project directory.
+    //
+    // Next, run the compiler using --via=args.txt to make the compiler
+    // use options from that file:
+    //
+    //     c:\Keil\ARM\Examples\Hello>c:\Keil\ARM\ARMCC\bin\armcc.exe --via=args.txt
+    //
+    //     c:\Keil\ARM\Examples\Hello>
+    //
+    // The project directory should then contain the header file
+    // predefined_macros_for_PC-lint.h, which contains the macro
+    // definitions enabled for your project's current build
+    // configuration.
+    //
+    // (Note, the build configuration can change the contents of this
+    // header, so there should be one for each project configuration. You
+    // may therefore chose to place it in a project subdirectory that is
+    // specific to a single configuration, and reference that directory in
+    // a -i option.)
+    //
+    // This config file causes the automatic inclusion of that header with
+    // the "-header()" option above.
+
+
+// The system #include search path should be supplied in:
+
+    include-path.lnt // IMPORTANT: this file should be created if it does not already exist.
+
+// To make it, copy the lines with "-I" options from args.txt above and
+// place them in include-path.lnt. There should be no space between the
+// directory name and the option. If any directory name contains space
+// characters, wrap the full pathname in double-quotes.
+//
+// Finally, if armcc.exe is in directory X, then the compiler also searches
+// in X\..\include. So for the configuration above, the full set of search
+// options for Lint is:
+//
+//          -I"C:\Keil\ARM\RV31\INC"
+//          -I"C:\Keil\ARM\CMSIS\Include"
+//          -I"C:\Keil\ARM\Inc\ST\STM32F10x"
+//          -I"c:\Keil\ARM\ARMCC\include"
+
+/***********       End Preprocessing Options         ***********/
+
+// Apart from preprocessor setup, this file is just a wrapper for:
+
+co-ARMCC-5.lnt

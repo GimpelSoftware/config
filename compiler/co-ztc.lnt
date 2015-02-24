@@ -1,0 +1,89 @@
+/* Date Stamp */ -d"_lint_co_ztc_lnt=co-ztc.lnt modified 22-Sep-1997"
+/* To document usage use: -message( "Using " _lint_co_ztc_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-ztc.lnt
+//    Compiler Options for Zortech C, C++
+
+-cmsc
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-ztc.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+-d__ZTC__
+-elib(553)  // undefined pre-processor variables are regarded as
+            // 0 without complaint within library headers
+-elib(579)  // allows bdos( char , ... ) within dos.h
+-elib(537)  // repeated include files within compiler's headers
+
++rw(__handle,__ss)   // add reserved words -- no semantics
+-esym(528,fg_version_sync)  // symbol within fg.h
+-hb^3       // 3-line error format using ^ like Zortech
+-format=%(%f(%l)\s:\s%)%t\s%n:\s%m  // format like Zortech
+-sld10          // sizeof(long double) is 10.
+-emacro(734,putc)   // don't complain about items being too large.
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+			// 796 and 797 (out-of-bounds errors).
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+
+// The following options are required by most compilers to
+// noiselessly process iostream.h
+
+-elib(1717) //empty prototypes
+-elib(522) //function return value ignored
+-elib(1053) //prototypes cannot be distinguished
+-elib(1721) //unusual operator =() declaration
+-elib(1720) //assignment op has non-const parameter
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(641)  // converting enum's to int
+-elib(537)  // repeated include file (ios.h)
+-elib(1511) // member (rdbuf) hides nonvirtual member
+-elib(1712) // default constructor not defined for class
+-elib(1736) // redundant access specifier
+-esym(1702,operator<<,operator>>)  // both a member and an ordinary function
+
+// These functions return things that are frequently ignored.
+
+-esym(534,ostream::operator<<,istream::operator>>)
+
+//  The following additional options seem to be needed.
+
+-fdc       // do not Distinguish plain Char as a unique type.
+	   // i.e. char is either signed char or unsigned char
+-elib(747) // significant prototype coercion
+-elib(740) // unusual pointer casts
+-elib(1029) // default argument repeated -- can't dist. char, signed char
+-elib(1055) // call to rdbuf() questioned?
+-elib(1708,1709) // minor C/C++ declaration conflict
+-elib(10,562) // needed because of omitted ',' in decl of form().
+-elib(659) // closing '}' of class not followed by a semi-colon
+-elib(1510) // base class w/o destructors

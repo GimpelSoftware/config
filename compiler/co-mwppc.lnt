@@ -1,0 +1,53 @@
+/* Date Stamp */ -d"_lint_co_mwppc_lnt=co-mwppc.lnt modified 18-Feb-2003"
+/* To document usage use: -message( "Using " _lint_co_mwppc_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-mwPPC.lnt
+//    Compiler Options for Metrowerks EPPC Compiler
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-mwPPC.lnt  source-file(s)
+//
+
+// NOTE: this configuration is for the default compiler settings
+
+//-cwh        // allow for @far and @hex-constant
+
+-sc1        // sizeof(char) is 1
+-ss2        // sizeof(short) is 2
+-si4        // sizeof(int) is 4
+-sl4        // sizeof(long) is 4
+-sll4       // sizeof(long long) is 8
+-sf4        // sizeof(float) is 4
+-sd8        // sizeof(double) is 8
+-sld8       // sizeof(long double)  is 8
+
+-spN4       // sizeof(near pointer) is 4
+-spF4       // sizeof(far pointer) is 4
+
+-d__declspec=_to_brackets +rw(_to_brackets)
+
+// we have to ignore the asm keyword in front of a function
++rw(_ignore_init) -dasm=_ignore_init
+
++rw(__inline, _inline, inline)	// enable the (non-standard) _inline keyword by ignoring it
+
+// handle __option macro in preprocessor
+-d__option()=0
+
+-efile(18,__ppc_eabi_init.c) //ignore files
+-esym(85, __float_huge,__float_nan,__double_huge,__extended_huge)     // are declared with no size in cmath
+
+// ## the following defines are defined internally in the compiler.
+// ## you can create the information below with the compiler option -Ldf
+// ## which produces a header file with the needed information.
+// we are a EPPC compiler
+-d__POWERPC__=1
+-d__PPC_EABI__=1

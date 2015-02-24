@@ -1,0 +1,599 @@
+/* Date Stamp */ -d"_lint_co_xc32_lnt=co-xc32.lnt modified 28-Oct-2014"
+/* To document usage use: -message( "Using " _lint_co_xc32_lnt ) */
+
+
+//    co-xc32.lnt
+//    Compiler options for the Microchip MPLAB XC32 C Compiler for PIC32
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-xc32.lnt  source-file(s)
+
+// Common C Interface
+co-cci.lnt
+
+//    If you are using GCC on some other system you will need to change
+//    the following options:
+
+-cgnu       // Notifies PC-lint that gcc is being used.
+
+// Begin: System Dependent Options
+// -------------------------------
+//XC32 predefined macros
+
+-d__DBL_MIN_EXP__=(-125)
+-d__HQ_FBIT__=15
+-d__UINT_LEAST16_MAX__=65535
+-d__SFRACT_IBIT__=0
+-d__FLT_MIN__=1.1754943508222875e-38F
+-d__UFRACT_MAX__=0XFFFFP-16UR
+-d__UINT_LEAST8_TYPE__{unsigned char}
+-d__DQ_FBIT__=63
+-d"__INTMAX_C(c)=(c ## LL)"
+-d__ULFRACT_FBIT__=32
+-d__SACCUM_EPSILON__=0x1P-7HK
+-d__CHAR_BIT__=8
+-d__USQ_IBIT__=0
+-d__UINT8_MAX__=255
+-d__ACCUM_FBIT__=15
+-d__WINT_MAX__=4294967295U
+-d_MIPS_TUNE_PIC32MX
+-dR3000
+-d__USFRACT_FBIT__=8
+-d__SIZE_MAX__=4294967295UL
+-d__WCHAR_MAX__=2147483647
+-d__LACCUM_IBIT__=32
+-d__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1
+-d__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2
+-d__GCC_HAVE_SYNC_COMPARE_AND_SWAP_4
+-d__DBL_DENORM_MIN__((double)1.4012984643248171e-45L)
+-d__FLT_EVAL_METHOD__=0
+-d__LLACCUM_MAX__=0X7FFFFFFFFFFFFFFFP-31LLK
+-d__FRACT_FBIT__=15
+-d_MIPS_ISA=_MIPS_ISA_MIPS32
+-d__UINT_FAST64_MAX__=18446744073709551615ULL
+-d__SIG_ATOMIC_TYPE__=int
+-d__UACCUM_FBIT__=16
+-d__LANGUAGE_C
+-d__DBL_MIN_10_EXP__=(-37)
+-d__FINITE_MATH_ONLY__=0
+-d_MIPS_TUNE="pic32mx"
+-d_ABIO32
+-d__LFRACT_IBIT__=0
+-d__GNUC_PATCHLEVEL__=2
+-d__LFRACT_MAX__=0X7FFFFFFFP-31LR
+-d__UINT_FAST8_MAX__=4294967295U
+-d__DEC64_MAX_EXP__=385
+-d__INT8_C(c)=(c)
+-d__UINT_LEAST64_MAX__=18446744073709551615ULL
+-d__SA_FBIT__=15
+-d__SHRT_MAX__=32767
+-d__LDBL_MAX__=1.7976931348623157e+308L
+-d__FRACT_MAX__=0X7FFFP-15R
+-d__UFRACT_FBIT__=16
+-d__UFRACT_MIN__=0.0UR
+-d__UINT_LEAST8_MAX__=255
+-d__LANGUAGE_C__
+-d__UINTMAX_TYPE__{long long unsigned int}
+-d__LLFRACT_EPSILON__=0x1P-63LLR
+-d__DEC32_EPSILON__=1E-6DF
+-d__UINT32_MAX__=4294967295UL
+-d__ULFRACT_MAX__=0XFFFFFFFFP-32ULR
+-d__TA_IBIT__=64
+-d__LDBL_MAX_EXP__=1024
+-d__WINT_MIN__=0U
+-d__MIPSEL__
+-d__ULLFRACT_MIN__=0.0ULLR
+-d__SCHAR_MAX__=127
+-d"__WCHAR_MIN__=(-__WCHAR_MAX__ - 1)"
+-d"__INT64_C(c)=(c ## LL)"
+-d__DBL_DIG__=6
+-d_MCHP_SZPTR=32
+-d__XC32_VERSION
+-d__LLACCUM_MIN__=(-0X1P31LLK-0X1P31LLK)
+-d__SQ_FBIT__=31
+-d__SIZEOF_POINTER__=4
+-d__USACCUM_IBIT__=8
+-d__USER_LABEL_PREFIX__
+-d__STDC_HOSTED__
+-d__LDBL_HAS_INFINITY__
+-d__LFRACT_MIN__=(-0.5LR-0.5LR)
+-d__mips_fpr=32
+-d__HA_IBIT__=8
+-d__TQ_IBIT__=0
+-d__FLT_EPSILON__=1.1920928955078125e-7F
+-d__XC32_VERSION__
+-d__mips__
+-d__USFRACT_IBIT__=0
+-d__LDBL_MIN__=2.2250738585072014e-308L
+-d__FRACT_MIN__=(-0.5R-0.5R)
+-d_MCHP_SZINT=32
+-d__DEC32_MAX__=9.999999E96DF
+-d__DA_IBIT__=32
+-dMIPSEL
+-d__INT32_MAX__=2147483647L
+-d__UQQ_FBIT__=8
+-d__SIZEOF_LONG__=4
+-d__UACCUM_MAX__=0XFFFFFFFFP-16UK
+-d__UINT16_C(c)=(c)
+-d__DECIMAL_DIG__=17
+-d__LFRACT_EPSILON__=0x1P-31LR
+-d__ULFRACT_MIN__=0.0ULR
+-dPIC32
+-d__LDBL_HAS_QUIET_NAN__
+-d__ULACCUM_IBIT__=32
+-d__UACCUM_EPSILON__=0x1P-16UK
+-d__GNUC__=4
+-d__ULLACCUM_MAX__=0XFFFFFFFFFFFFFFFFP-32ULLK
+-d__HQ_IBIT__=0
+-d__FLT_HAS_DENORM__
+-d__SIZEOF_LONG_DOUBLE__=8
+-d_R3000
+-d__BIGGEST_ALIGNMENT__=8
+-d__DQ_IBIT__
+-d__DBL_MAX__=((double)3.4028234663852886e+38L)
+-d__ULFRACT_IBIT__=0
+-d_MCHP_FPSET=16
+-d__INT_FAST32_MAX__=2147483647
+-d__DBL_HAS_INFINITY__
+-d__C32__
+-d__ACCUM_IBIT__=16
+-d__DEC32_MIN_EXP__=(-94)
+-d__LACCUM_MAX__=0X7FFFFFFFFFFFFFFFP-31LK
+-d__INT_FAST16_TYPE__=int
+-d__LDBL_HAS_DENORM__
+-d__DEC128_MAX__=9.999999999999999999999999999999999E6144DL
+-d__INT_LEAST32_MAX__=2147483647L
+-d__USING_SJLJ_EXCEPTIONS__
+-d__DEC32_MIN__=1E-95DF
+-d__ACCUM_MAX__=0X7FFFFFFFP-15K
+-d__DBL_MAX_EXP__=128
+-d__USACCUM_EPSILON__=0x1P-8UHK
+-d__R3000__
+-d__DEC128_EPSILON__=1E-33DL
+-d__SFRACT_MAX__=0X7FP-7HR
+-d__FRACT_IBIT__=0
+-d__PTRDIFF_MAX__=2147483647L
+-d__UACCUM_MIN__=0.0UK
+-dmips
+-d__SOFT_FLOAT
+-d__UACCUM_IBIT__=16
+-d_MCHP_SZLONG=32
+-d__LONG_LONG_MAX__=9223372036854775807LL
+-d__SIZEOF_SIZE_T__=4
+-d__ULACCUM_MAX__=0XFFFFFFFFFFFFFFFFP-32ULK
+-d__SIZEOF_WINT_T__=4
+-d__SA_IBIT__=16
+-d__ULLACCUM_MIN__=0.0ULLK
+-d__GXX_ABI_VERSION=1002
+-d__UTA_FBIT__=64
+-d__FLT_MIN_EXP__=(-125)
+-d__USFRACT_MAX__=0XFFP-8UHR
+-d__UFRACT_IBIT__=0
+-d__INT_FAST64_TYPE__{long long int}
+-d_MIPSEL
+-d__DBL_MIN__=((double)1.1754943508222875e-38L)
+-d_MIPS_ARCH="pic32mx"
+-d__32MXGENERIC__
+-d__LACCUM_MIN__=(-0X1P31LK-0X1P31LK)
+-d__ULLACCUM_FBIT__=32
+-d__ULLFRACT_EPSILON__=0x1P-64ULLR
+-d__DEC128_MIN__=1E-6143DL
+-d__REGISTER_PREFIX__
+-d__UINT16_MAX__=65535
+-d__DBL_HAS_DENORM__
+-d__ACCUM_MIN__=(-0X1P15K-0X1P15K)
+-d__SQ_IBIT__=0
+-d__UINT8_TYPE__{unsigned char}
+-d_MIPS_ARCH_PIC32MX
+-d__UHA_FBIT__=8
+-d__NO_INLINE__
+-d__SFRACT_MIN__=(-0.5HR-0.5HR)
+-d__R3000
+-d__UTQ_FBIT__=128
+-d__FLT_MANT_DIG__=24
+-d__VERSION__="4.5.2 MPLAB XC32 Compiler v1.30 (TC9)"
+-d"__UINT64_C(c)=(c ## ULL)"
+-d__ULLFRACT_FBIT__=64
+-d__FRACT_EPSILON__=0x1P-15R
+-d__ULACCUM_MIN__=0.0ULK
+-d__UDA_FBIT__=32
+-d__LLACCUM_EPSILON__=0x1P-31LLK
+-d__XC
+-d__USFRACT_MIN__=0.0UHR
+-d__UQQ_IBIT__=0
+-d"__INT32_C(c)=(c ## L)"
+-d__DEC64_EPSILON__=1E-15DD
+-d__DEC128_MIN_EXP__=(-6142)
+-d__UHQ_FBIT__=16
+-d__LLACCUM_FBIT__=31
+-d__INT_FAST32_TYPE__=int
+-d__UINT_LEAST16_TYPE__{short unsigned int}
+-d__INT16_MAX__=32767
+-d__SIZE_TYPE__{long unsigned int}
+-d__UINT64_MAX__=18446744073709551615ULL
+-d__UDQ_FBIT__=64
+-d__INT8_TYPE__{signed char}
+-d__ELF__
+-d__mips_isa_rev=2
+-d__ULFRACT_EPSILON__=0x1P-32ULR
+-d__LLFRACT_FBIT__=63
+-d__FLT_RADIX__=2
+-d__INT_LEAST16_TYPE__{short int}
+-d__LDBL_EPSILON__=2.2204460492503131e-16L
+-d"__UINTMAX_C(c)=(c ## ULL)"
+-d__SACCUM_MAX__=0X7FFFP-7HK
+-d__SIG_ATOMIC_MAX__=2147483647
+-d__SIZEOF_PTRDIFF_T__=4
+-d__LACCUM_EPSILON__=0x1P-31LK
+-d__DEC32_SUBNORMAL_MIN__=0.000001E-95DF
+-d__INT_FAST16_MAX__=2147483647
+-d_MIPS_SZPTR=32
+-d__UINT_FAST32_MAX__=4294967295U
+-d__UINT_LEAST64_TYPE__{long long unsigned int}
+-d__USACCUM_MAX__=0XFFFFP-8UHK
+-d__SFRACT_EPSILON__=0x1P-7HR
+-d__FLT_HAS_QUIET_NAN__
+-d__FLT_MAX_10_EXP__=38
+-d__LONG_MAX__=2147483647L
+-d__DEC128_SUBNORMAL_MIN__=0.000000000000000000000000000000001E-6143DL
+-d__FLT_HAS_INFINITY__
+-d__USA_FBIT__=16
+-d__UINT_FAST16_TYPE__{unsigned int}
+-d__DEC64_MAX__=9.999999999999999E384DD
+-d__CHAR16_TYPE__{short unsigned int}
+-d__XC_VERSION
+-d__PRAGMA_REDEFINE_EXTNAME
+-d__INT_LEAST16_MAX__=32767
+-d__DEC64_MANT_DIG__=16
+-d__INT64_MAX__=9223372036854775807LL
+-d__UINT_LEAST32_MAX__=4294967295UL
+-d__SACCUM_FBIT__=7
+-d__INT_LEAST64_TYPE__{long long int}
+-d__INT16_TYPE__{short int}
+-d__INT_LEAST8_TYPE__{signed char}
+-d_mips
+-d__SIZEOF_INT__=4
+-d__DEC32_MAX_EXP__=97
+-d__INT_FAST8_MAX__=2147483647
+-d__INTPTR_MAX__=2147483647L
+-d__XC_VERSION__
+-d__QQ_FBIT__=7
+-d__UTA_IBIT__=64
+-d__PIC32
+-d_MIPS_SZINT=32
+-d__LDBL_MANT_DIG__=53
+-d__SFRACT_FBIT__=7
+-d__SACCUM_MIN__=(-0X1P7HK-0X1P7HK)
+-d__DBL_HAS_QUIET_NAN__
+-d__MIPSEL
+-d"__SIG_ATOMIC_MIN__=(-__SIG_ATOMIC_MAX__ - 1)"
+-d__GCC_HAVE_BUILTIN_MIPS_CACHE
+-d__INTPTR_TYPE__{long int}
+-d__UINT16_TYPE__{short unsigned int}
+-d__WCHAR_TYPE__=int
+-d__SIZEOF_FLOAT__=4
+-d__USQ_FBIT__=32
+-d__UINTPTR_MAX__=4294967295UL
+-d__PIC32__
+-d__DEC64_MIN_EXP__=(-382)
+-d__ULLACCUM_IBIT__=32
+-d__INT_FAST64_MAX__=9223372036854775807LL
+-d__FLT_DIG__=6
+-d__UINT_FAST64_TYPE__{long long unsigned int}
+-d__INT_MAX__=2147483647
+-d__LACCUM_FBIT__=31
+-d__USACCUM_MIN__=0.0UHK
+-d__UHA_IBIT__=8
+-d__INT64_TYPE__{long long int}
+-d__FLT_MAX_EXP__=128
+-d__UTQ_IBIT__=0
+-d_MIPS_SIM=_ABIO32
+-d__XC32
+-d__DBL_MANT_DIG__=24
+-d__INT_LEAST64_MAX__=9223372036854775807LL
+-d__DEC64_MIN__=1E-383DD
+-d__WINT_TYPE__{unsigned int}
+-d__UINT_LEAST32_TYPE__{long unsigned int}
+-d__SIZEOF_SHORT__=2
+-d__ULLFRACT_IBIT__=0
+-d__LDBL_MIN_EXP__=(-1021)
+-d_MIPS_FPSET=16
+-d__UDA_IBIT__=32
+-d__INT_LEAST8_MAX__=127
+-d__LFRACT_FBIT__=31
+-d__LDBL_MAX_10_EXP__=308
+-d__DBL_EPSILON__=((double)1.1920928955078125e-7L)
+-d__UINT8_C(c)=(c)
+-d__INT_LEAST32_TYPE__{long int}
+-d__SIZEOF_WCHAR_T__=4
+-d__UINT64_TYPE__{long long unsigned int}
+-d__LLFRACT_MAX__=0X7FFFFFFFFFFFFFFFP-63LLR
+-d__TQ_FBIT__=127
+-d__INT_FAST8_TYPE__=int
+-d__ULLACCUM_EPSILON__=0x1P-32ULLK
+-d__UHQ_IBIT__=0
+-d__LLACCUM_IBIT__=32
+-d__DEC_EVAL_METHOD__=2
+-d__TA_FBIT__=63
+-d__C32_VERSION__
+-d__mips_soft_float
+-d__UDQ_IBIT__=0
+-d__ACCUM_EPSILON__=0x1P-15K
+-d"__UINT32_C(c)=(c ## UL)"
+-d__INTMAX_MAX__=9223372036854775807LL
+-d__FLT_DENORM_MIN__=1.4012984643248171e-45F
+-d__LLFRACT_IBIT__=0
+-d__INT8_MAX__=127
+-d__UINT_FAST32_TYPE__{unsigned int}
+-d__CHAR32_TYPE__{long unsigned int}
+-d__FLT_MAX__=3.4028234663852886e+38F
+-dLANGUAGE_C
+-d__USACCUM_FBIT__=8
+-d__INT32_TYPE__{long int}
+-d__SIZEOF_DOUBLE__=4
+-d__FLT_MIN_10_EXP__=(-37)
+-d__UFRACT_EPSILON__=0x1P-16UR
+-d__INTMAX_TYPE__{long long int}
+-d_LANGUAGE_C
+-d__DEC128_MAX_EXP__=6145
+-d__GNUC_MINOR__=5
+-d__UINTMAX_MAX__=18446744073709551615ULL
+-d__DEC32_MANT_DIG__=7
+-d__HA_FBIT__=7
+-d__DBL_MAX_10_EXP__=38
+-d__LDBL_DENORM_MIN__=4.9406564584124654e-324L
+-d__INT16_C(c)=(c)
+-d__XC32__
+-d__STDC__
+-d__PTRDIFF_TYPE__{long int}
+-d__LLFRACT_MIN__=(-0.5LLR-0.5LLR)
+-d__mips=32
+-d__DA_FBIT__=31
+-d__UINT32_TYPE__{long unsigned int}
+-d_MIPS_SZLONG=32
+-d__UINTPTR_TYPE__{long unsigned int}
+-d__USA_IBIT__=16
+-d__DEC64_SUBNORMAL_MIN__=0.000000000000001E-383DD
+-d__DEC128_MANT_DIG__=34
+-d__LDBL_MIN_10_EXP__=(-307)
+-d__XC__
+-d__SIZEOF_LONG_LONG__=8
+-d__ULACCUM_EPSILON__=0x1P-32ULK
+-d__SACCUM_IBIT__=8
+-d__LDBL_DIG__=15
+-d__UINT_FAST16_MAX__=4294967295U
+-d__GNUC_GNU_INLINE__
+-d__ULLFRACT_MAX__=0XFFFFFFFFFFFFFFFFP-64ULLR
+-d__UINT_FAST8_TYPE__{unsigned int}
+-d__USFRACT_EPSILON__=0x1P-8UHR
+-d__ULACCUM_FBIT__=32
+-d__QQ_IBIT__=0
+-d__mips_dsp_rev=2
+-d__mips_dspr2
+-d__mips_dsp
+-d__PIC32MZ__
+-d__PIC32MZ
+-dPIC32MZ
+-d__32MXGENERIC__
+
+
+
+-d__PIC32MX__
+-d__PIC32MX
+-dPIC32MX
+
+-d__LANGUAGE_C__
+-d__LANGUAGE_C
+-d_LANGUAGE_C
+
+-d_MIPS_SZINT=32
+-d_MCHP_SZINT=32
+-d_MIPS_SZLONG=64
+-d_MCHP_SZLONG=64
+-d_MIPS_SZPTR=32
+-d_MCHP_SZPTR=32
+-d__mips__
+-d_mips
+-d_MIPS_ARCH_PIC32MX
+-d_MIPS_TUNE_PIC32MX
+-d__mips_soft_float
+-d__MIPSEL__
+-d__MIPSSEL
+-d_MIPSEL
+-d__mips=32
+-d__mips_isa_rev=2
+-d_MIPS_ISA=_MIPS_ISA_MIPS32
+
+
+
+-si4    // int's are typically 4 bytes
+-sp4    // ptr's are typically 4 bytes
+
+// -----------------------------
+// End: System Dependent Options
+
++fld      // support gcc's label designators
+
+          // while processing library headers
+-wlib(1)  // sets the warning level within library headers to 1
+          // (only library Error messages).  Comment out if you
+          // are actually linting library headers.  This
+          // option makes obsolete options of the form -elib(axxx) where
+          // xxx >= 400 which may be retained for historical reasons.
+-elib(15)   // redeclaration of symbol
+-elib(516)  // lots of redeclarations in Linux stdlib.h
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+
+-elib(410)  // unusual size_t
+-elib(767)  // differently defined macro
+-elib(624)  // typedef symbol redeclared
+-elib(607)  // parameter substitution within string
+-elib(537)  // repeated include files
+-elib(123)  // size is both a variable and a macro with args
+-elib(19)	//supress meaages about useless declarations
+
+-emacro(734,putc)      // don't complain about items being too large.
+-emacro((???),va_arg)  // the va_arg() macro can yield 415, 416, 661, 662
+                       // 796 and 797 (out-of-bounds errors).
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK
+
+-esym(528,__huge_val,__nan,__qnan,__qnanf,__snan,__snanf)
+           // We don't care if we don't reference some GNU funcs
+-esym(528,__gnu_malloc,__gnu_calloc)
+
+//  The following options were found necessary when processing
+//  the Unix headers within /usr/include
+
++fdi             // Use the directory of the including file
+
++ppw(ident)      // Tolerate #ident
++rw(__inline)    // enable the (non-standard) __inline keyword
++rw(__inline__)  // enable the (non-standard) __inline__ keyword
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+// For non-ANSI compilers we suppress messages 515 and 516
+// for functions known to have variable argument lists.
+// For ANSI compilers, header files should take care of this.
+
+-esym(515,fprintf,printf,sprintf,fscanf,scanf,sscanf)
+-esym(516,fprintf,printf,sprintf,fscanf,scanf,sscanf)
+
+// The following options are required by most compilers to
+// noiselessly process iostream.h
+
+-elib(1717) // empty prototypes
+-elib(522)  // function return value ignored
+-elib(1053) // prototypes cannot be distinguished
+-elib(1721) // unusual operator =() declaration
+-elib(1720) // assignment op has non-const parameter
+-elib(655)  // bitwise operator combining compatible enum's
+-elib(641)  // converting enum's to int
+
+-elib(747)  // significant prototype coercion
+-elib(740)  // unusual pointer casts
+-elib(1029) // default argument repeated -- can't dist. char, signed char
+
+-elib(763)  // redundant declaration
+
+// What follows here is a collection of options we have found
+// to be needed to support Version 3 of GCC.  The need for these
+// options actually predate Version 3 and are of the 2.9... time frame
+
+-e93         // allow newlines within quoted string arguments to macros
+
++rw(__extension__)
+-d__builtin_va_list=void*           // used by stdarg.h
+-d__builtin_stdarg_start()=_to_semi // ditto
+-d__builtin_va_end()=_to_semi       // ditto
++rw(_to_semi)                 // needed for the two macros above.
+-d__STDC_VERSION__=199901L    // required by C99
+-d__FUNCTION__="somefunction"
+-d__PRETTY_FUNCTION__="somefunction"
++fwc                    // wchar_t is builtin
+-d_WCHAR_T              // tell the header files as much
+-d__signed=
+-elib(148)              // Some of the libraries are redefining member
+                        // functions
+-elib(1073)             // reverse_iterator<> is being invoked with
+                        // an insufficient number of parameters.
++rw(__typeof__)         // activate __typeof__ keyword
+-d__typeof=__typeof__   // an alternative to using __typeof__
++rw( __volatile__ )     // unusual reserved word ignored.
++rw( __volatile )       // unusual reserved word ignored.
++rw( _to_brackets )     // a pair of options to ignore an elaborated
++d__asm__=_to_brackets  // assembly language escape.
++d__attribute__=_to_brackets
+-rw(__except)               // This MS reserved word is used as an identifier
++rw( __complex__, __real__, __imag__ )  // reserved words that can be ignored.
++d__builtin_strchr=(char*)  // permits the inline definition ...
++d__builtin_strpbrk=(char*) // of these functions to be linted ...
++d__builtin_strrchr=(char*) // without drawing a complaint
++d__builtin_strstr=(char*)  // about the use of a non-standard name
+-esym( 718, __builtin_* )   // The compiler does not need these ...
+-esym( 746, __builtin_* )   // declared and it knows their prototypes.
+--uconst                    // keep const from being defined away
++rw(__restrict)             // ignore this keyword.
+
+// The following was produced by `gcc -v`, and may not be necessary.
+// Naturally if you include these options, you should make sure they
+// match your version of GCC:
+//  -d__GNUC__=3
+//  -d__GNUC_MINOR__=4
+//  -d__GNUC_PATCHLEVEL__=4
+-d_GNU_SOURCE
+-d__GNUC__
+-dlint
+
+
++macros			//increases the size of macro storage.
+
+// Built-in identifiers follow.  These constants are compiled into gcc and are not
+// defined in any GCC headers.  They might vary from platform to platform.  To
+// see what they are on yours, put the following into a source file and run it
+// through gcc with the -E option; copy the result into your local copy of
+// co-gnu3.lnt if your output differs from the constants used for the -d Lint options below:
+	// //---begin builtin.c---
+	//  __CHAR_BIT__
+	//  __FLT_MANT_DIG__
+	//  __FLT_DIG__
+	//  __FLT_RADIX__
+	//  __FLT_MIN_EXP__
+	//  __FLT_MIN_10_EXP__
+	//  __FLT_MAX_EXP__
+	//  __FLT_MAX_10_EXP__
+	//  __FLT_DENORM_MIN__
+	//  __DBL_MANT_DIG__
+	//  __DBL_DIG__
+	//  __FLT_RADIX__
+	//  __DBL_MIN_EXP__
+	//  __DBL_MIN_10_EXP__
+	//  __DBL_MAX_EXP__
+	//  __DBL_MAX_10_EXP__
+	//  __DBL_DENORM_MIN__
+	//  __LDBL_MANT_DIG__
+	//  __LDBL_DIG__
+	//  __LDBL_MIN_EXP__
+	//  __LDBL_MIN_10_EXP__
+	//  __LDBL_MAX_EXP__
+	//  __LDBL_MAX_10_EXP__
+	//  __LDBL_DENORM_MIN__
+	// //--end builtin.c---
+//-d__CHAR_BIT__=8
+//-d__FLT_MANT_DIG__=24
+//-d__FLT_DIG__=6
+//-d__FLT_RADIX__=2
+//-d__FLT_MIN_EXP__=(-125)
+//-d__FLT_MIN_10_EXP__=(-37)
+//-d__FLT_MAX_EXP__=128
+//-d__FLT_MAX_10_EXP__=38
+//-d__FLT_DENORM_MIN__=1.40129846e-45F
+//-d__DBL_MANT_DIG__=53
+//-d__DBL_DIG__=15
+//-d__FLT_RADIX__=2
+//-d__DBL_MIN_EXP__=(-1021)
+//-d__DBL_MIN_10_EXP__=(-307)
+//-d__DBL_MAX_EXP__=1024
+//-d__DBL_MAX_10_EXP__=308
+//-d__DBL_DENORM_MIN__=4.9406564584124654e-324
+//-d__LDBL_MANT_DIG__=53
+//-d__LDBL_DIG__=15
+//-d__LDBL_MIN_EXP__=(-1021)
+//-d__LDBL_MIN_10_EXP__=(-307)
+//-d__LDBL_MAX_EXP__=1024
+//-d__LDBL_MAX_10_EXP__=308
+//-d__LDBL_DENORM_MIN__=4.9406564584124654e-324

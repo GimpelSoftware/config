@@ -1,0 +1,92 @@
+/* Date Stamp */ -d"_lint_env_bc5_lnt=env-bc5.lnt modified 29-Mar-1999"
+/* To document usage use: -message( "Using " _lint_env_bc5_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-bc5.lnt:  environment parameters for the Borland 5.0 C/C++
+    Interactive Development Enviroment running under Windows
+
+    If you are using the Borland Windows IDE and you wish to invoke
+    PC-lint from that environment then do the following:
+
+    Add the following entry (or some suitable variation) to the
+    Options | Tools dialog box (from the main menu select 'Options',
+    then 'Tools' then select 'New' entering the following information).
+
+    Name:  Lint
+
+    Path:  C:\LINT\LINT-NT.EXE
+    (modify the path as appropriate)
+
+    Command Line:  $SAVE EDIT $NOSWAP $CAP MSG(BORL2MSG) -u -v
+	-iC:\LINT -i$INC std env-bc5 -i$DIR($EDNAME) $EDNAME
+
+    Menu Text:  &Lint
+    (the '&' allows selection via 'L' from the Tool menu).
+
+    Substitute your own lint path if different from the above.
+    This will save the current file ($SAVE EDIT), will not switch
+    screens and will capture the output via a "filter" implemented
+    with a script file provided with the Borland compiler (in a
+    directory such as C:\BORLAND\SCRIPT).  After specifying unit checkout
+    (-u) and no verbosity (-v) and include directories (-i) there
+    appears 'std' specifying the file std.lnt.  This is the same as
+    appears in your lin.bat file.  The 'env-bc5' specifies the file
+    your eyes are currently reading; there is another -i
+    and finally the being-edited file appears as $EDNAME.
+
+    The following option, or portions thereof, may also prove helpful,
+    even critical:
+
+	$RSP(-D$DEF $DEPLIST())
+
+    This option must be placed after the 'env-bc5' because
+    'env-bc5' contains the crucial option +lnt($$$).  The
+    $RSP() creates a temporary 'response' file whose contents
+    appear between parentheses.  In this case the response file
+    contains a '-D' followed by a semi-colon separated list of
+    pre-processor variables to be defined ($DEF) followed by the
+    list of modules ($DEPLIST()).  The options between parentheses
+    could also work on the command line if it were not for the
+    limitation on the length of the command line.  Make sure you use
+    '-D' and not '-d' as the latter does not break on semicolon.
+    Obviously $DEPLIST() can be used to create a project check rather
+    than just a unit check as given above.  If $DEPLIST() doesn't work
+    for you, simply create a .LNT file containing each module name.
+    Use that file name in place of $EDNAME above.
+
+    After you close things up and return to the main menu, you can
+    select the 'Tool' menu and your new entry should be there.
+
+    IMPORTANT NOTE: The PC-lint output will appear in the Message
+    window.  If you can't see the output chances are you are not displaying
+    the Message window.  To make the Message window visible, select
+    "View" from the main menu and select "Message".
+
+    You may click on any of the messages in the Message window to bring into
+    view the source code associated with the message.  You may also use Alt F8
+    to advance to the next message and Alt F7 to go to the previous message.
+
+    --------
+    For trouble shooting replace in the command line the
+		 $CAP MSG(BORL2MSG)
+    with
+		 $CAP EDIT
+    this will bring the unfiltered output from lint into an edit
+    window.  This is useful to, among other things, ensure that your
+    paths are correct.
+ */
+
++ffn
+-"format=%(Error %f %l%):%t %n %m" //format required by borl2msg
+-width(0)   // don't break lines
+-hF1        // always supply a File
++e900       // always produce at least one line of output
+-limit(255) // BC5 reacts badly to too many messages and low disk space
++lnt($$$)   // filename.$$$ is a lint file
+-t4         //  Presume that tabs are every 4 stops

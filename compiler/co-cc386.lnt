@@ -1,0 +1,85 @@
+/* Date Stamp */ -d"_lint_co_cc386_lnt=co-cc386.lnt modified 16-Dec-1999"
+/* To document usage use: -message( "Using " _lint_co_cc386_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-cc386.lnt
+//    Compiler Options for CadUL CC-386
+//
+//    Gimpel Software acknowledges the assistance of Andreas Bock
+//    of Siemens in the preparation of this file.
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-cc386.lnt  source-file(s)
+//
+
+            // while processing compiler (library) header files ...
+
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+
+-elib(123)  // function-like macro name used as non-macro
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+
+-dCADUL=1             // this preprocessor symbol is pre-defined (Compiler Type)
+-di386=1              // this preprocessor symbol is pre-defined (1 if Compiler works in Flat/Protected Mode)
+-di486=1              // this preprocessor symbol is pre-defined (1 if Compiler works in Flat/Protected Mode)
+-di186=0              // this preprocessor symbol is pre-defined (1 if Compiler works in Real Mode)
+-di8086=0             // this preprocessor symbol is pre-defined (1 if Compiler works in Real Mode)
+-d__STDC__=1          // this preprocessor symbol is pre-defined (1 if Compiler works in ANSI Mode)
+-d__INT32__=1         // this preprocessor symbol is pre-defined (1 if int is 32bit)
+
+
+-d__LONG64__=0        // if this is set to 1 (Compiler option -VLONG or #pragma long64)
+                      // then also use the option -sl8
+//-sld8                 // sizeof(long double) is 8
+
+-mD                   // D memory model (COMPACT)
+
+-si4                  // sizeof(int)         is 4
+-spN4                 // sizeof(near pointer) is 4
+-spF6                 // sizeof( far pointer) is 6
+
+-d_OPTIMIZE_=1        // this preprocessor symbol is pre-defined
+-d_ROM_=0             // this preprocessor symbol is pre-defined
+
+
++fce                  // continue-on-error true
+-dalien=pascal        // nearest meaning to alien
+-dreadonly=const      // nearest meaning to readonly
+
+    // we formerly had -dselector=void*, replaced by:
+-header(lib-in.h)     // contains needed typedef
+
++rw(far,near)         // extra reserved words needed
+-$                    // accept $ in identifiers
+
+
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+-e506
+-esym(534,close,creat,fclose,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662
+			// 796 and 797 (out-of-bounds errors).
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+

@@ -1,0 +1,21 @@
+/* Date Stamp */ -d"_lint_au_misra_lnt=au-misra.lnt modified 11-Sep-2013"
+/* To document usage use: -message( "Using " _lint_au_misra_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+// au-misra.lnt -- Author options - MISRA
+// Traditionally this file has held the lastest misra standard.
+// There have been three standards published: MISRA 1998, MISRA 2004
+// and MISRA 2012.
+// We have three files bearing options that, respectively, activate
+// these standards: au-misra1.lnt, au-misra2.lnt and au-misra3.lnt
+// Prior to publishing the 2nd standard, the file au-misra.lnt was
+// used to hold the then current misra standard.  We are maintaining
+// this file to afford backward compatibility.
+
+au-misra3.lnt

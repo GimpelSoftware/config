@@ -1,0 +1,48 @@
+/* Date Stamp */ -d"_lint_co_sun_lnt=co-sun.lnt modified 10-Jun-2005"
+/* To document usage use: -message( "Using " _lint_co_sun_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-sun.lnt
+//    Compiler Options for Sun's 4.2 C++ Compiler
+
+//    This file contains options to allow FlexeLint to process source
+//    files for the Sun's C++ Compiler.  It is used as follows:
+//
+//    flexelint  co-sun.lnt  source-file(s)
+//
+
+-csun
+
+--i/usr/include     // Set an include directory
++fdi         // Use the directory of the including file
+
+-dsparc     // need to define this symbol or #error's occur within headers
+-d_sparc
+-di386      // needed for some Unix's
+-a#machine(i386)  //  #assert's machine(i386)  (SVR4 facility).
+++template(200)   //  allow searches in formerly dependent base classes
+
+-elib(2)    // unclosed quotes in Unix's nserve.h
+-elib(123)  // size is both a variable and a macro with args
+-wlib(1)    // Sets warning level within library headers to 1
+	    // (i.e. suppress Warning and Info messages within libraries)
+	    // If you are actually checking library code you may want
+	    // to comment out this option.
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.  Feel free to add to or subtract
+//  from this list.
+
+-esym(534,close,creat,fclose,fflush,fprintf,fputc)
+-esym(534,fputs,fscanf,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,printf,puts,scanf,sprintf,sscanf,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)

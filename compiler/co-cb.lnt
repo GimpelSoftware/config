@@ -1,0 +1,180 @@
+/* Date Stamp */ -d"_lint_co_cb_lnt=co-cb.lnt modified 16-Aug-2005"
+/* To document usage use: -message( "Using " _lint_co_cb_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-cb.lnt
+//    Compiler Options for Inprise' C++ Builder
+
+-ctc
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-cb.lnt  source-file(s)
+//
+
+// You may need to change the following
+
+-d_M_IX86=300   // assume Intel 80386 architecture -- modify to suit
+// -d__MSDOS__     // an MS-DOS application
+// -d_Windows      // 16-bit Windows
+-d__WIN32__     // 32-bit Windows
+-d__FLAT__      // generally goes along with __WIN32__
+-d__CONSOLE__   // a console application under 32-bit Windows
+-d__MT__        // multi-threading
+    // memory model: e.g. -d__FLAT__ -u__SMALL__  usually set in std.lnt
+    // -dSTRICT
+
+// Using Borland classlib or OWL?  Then one of the following is usually
+// inserted into std.lnt by the INSTALL procedure.
+// You may explicitly insert one by removing the comment:
+//  lib-bcl5.lnt      // Borland Class Library
+//  lib-owl.lnt       // Borland Object Windows Library
+
+//these are always defined
+-d__CDECL__
+
++fdh // if an extensionless filename is included assume a .h extension
++fpc // pointer value retains l-value
++fbo // bool is an intrinsic type
++fwc // w_char is an intrinsic type
+
++libh(co-bc5.h)
+-header(co-bc5.h) // includes co-bc5.h which contains borland
+                  // specfic defines
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+            // (no warnings, just syntax errors).  Comment out if you
+            // are actually linting library headers.  This
+            // option makes obsolete options of the form -elib(axxx) where
+            // xxx >= 400 which may be retained for historical reasons.
+-elib(87)   // windef.h contains a botched #ifdef
+-elib(123)  // FD_SET is both a typedef and a macro.
+
+-emacro(507,FP_OFF)  // inhibit loss of information message.
+--emacro(507,offsetof) // inhibit loss of info message in macro
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK
+-emacro(792,assert)    // inhibit void cast of void message
+-emacro((???),va_arg)  // the va_arg() macro can yield 415, 416, 661, 662
+                       // 796 and 797 (out-of-bounds errors).
+
++rw(_export,_import)    // needed especially for Windows programming
+-sld10          // sizeof(long double) is 10.
+-etd(origin) // this will inhibit complaints about 'origin' type differences
+            // this occurs when both bios.h and dos.h contribute the
+-e793       // inhibit 'ANSI limit reached' --
+            // limits are impractically low with Borland headers
+            // identical struct's to a program.
+-function(exit,_exit)   // _exit() is like exit()
+-function(exit,__assertfail)  // __assertfail() is like exit()
+-emacro(570,disable,_disable,enable,_enable)  // allow (char) 0xFA
+-emacro(734,putc)   // don't complain about items being too large.
+-emacro(732,putc)      // inhibit loss of sign
+-d_asm=asm          // Borland accepts both "_asm" and "asm"
+-d__asm=asm         // and __asm
+
+
+// Borland's added keywords
++rw(__interrupt,__near,__far,__huge,__fortran,__pascal,__cdecl)
++rw(__import,__export,__loadds,__saveregs,__asm,__fastcall,__stdcall)
++rw(_stdcall)
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,*printf,*putc,*scanf)  // often called without checking return
+-esym(534,close,creat,fclose,fflush)
+-esym(534,fputs,fseek,fwrite,lseek,memcpy,memmove,memset)
+-esym(534,puts,strcat,strcpy)
+-esym(534,strncat,strncpy,unlink,write)
+-esym(534,__assertfail)
+
+//  These are the wide char variants of printf-scanf family
+
+-wprintf( 1, wprintf )
+-wprintf( 2, fwprintf, swprintf )
+-wscanf( 1, wscanf )
+-wscanf( 2, fwscanf, swscanf )
+
+
+// The following options are required by most compilers to
+// noiselessly process iostream.h
+
+-elib(1053) //prototypes cannot be distinguished
+-esym(1702,operator<<,operator>>)  // both member and ordinary function
+
+
+// These functions return things that are frequently ignored.
+
+-esym(534,*operator<<,*operator>>)
+
++fwc            // wide char type (wchar_t) is built-in
+-d_WCHAR_T      // this inhibits stdlib.h from typedef'ing wchar_t.
+-d_WCHAR_T_DEFINED  // and also this is needed as well
+//  Please note:
+//  The flag +fwc says that wchar_t is builtin for both C and C++ code.
+//  For Borland C++ this is true.  For Borland C this is untrue.  The
+//  option -d_WCHAR_T prevents stdlib.h from attempting to define it
+//  while linting C code.  If this is the only thing you're using
+//  out of stdlib.h you may get a message saying stdlib.h isn't being
+//  used when it is.  Uncomment the following option in that case.
+
+//  -efile(766,stdlib.h)
+
+// The following additional options seem to be needed.
++fna            // allow operator new[]
+
+-elib(1065)     // same name declared as "C" and not "C"
+-elib(1066)     // same name declared as "C" and not "C"
+-efile(766,mem.h)  //included by iostream.h but not really used
+
++rw(__rtti)             // run-time type identification
+-d__seg=_seg            // this will be needed until we recognize __seg
+-d__BORLANDC__=0x540    // predefined macro
+-d__TURBOC__=0x540      // predefined macro
+
+-elib(43)               // vacuous type for variable
+-elib(46)               // allow not int as base of bit field
+-esym(18,lock,unlock)   // "C" functions being overloaded?
+-esym(18,LPWSTR,LPCWSTR)// Both of these types are redeclared (typedef)
+-elib(1007)             // virtual definition within extern "C"
+-esym(1058,TDate)       // Borlands code trys to modify a non-const ref
+
+-e1023  // C++ Builder adopts the policy of first come first served
+        // so that if two function templates could both handle a
+        // situation the first should be taken.  Hence don't issue
+        // the ambiguity message
+-e1703  // Don't elaborate on this message either
+
+++template(1)    // aggressively process base classes
++ftr            // truncate header file names to 8x3 if necessary
+        // We now support __declspec directly, unfortunately only the
+        // Microsoft version and not the extended Borland version of
+        // multiple specifications separated by commas.  That will be
+        // out soon.
++rw(_to_brackets)           // ignore "_to_brackets" parenthetical_expression
+-d__declspec=_to_brackets   // ignore __declspec expressions
+-d_declspec=__declspec      // the single '_' version is occasionally used
+-dRPC_ENTRY=                // missing #define in rpc.h
+-elib(64)                   // assigning int to enum
+-elib(1055,1058)            // can't find System::empty()
+-elibsym(1734)              // had trouble defining std::getline()
++rw(__closure)              // enable this reserved word (will be ignored)
+-d__published=public        // pretend attribute '__published' is 'public'
+-dmbstate_t=int             // the type to record the multi-byte state ...
+                            // is built in to Borland.
+
+//  Add elements of ole automation
+
+lib-ole.lnt
+

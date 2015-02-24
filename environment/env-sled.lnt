@@ -1,0 +1,56 @@
+/* Date Stamp */ -d"_lint_env_sled_lnt=env-sled.lnt modified 9-Feb-2000"
+/* To document usage use: -message( "Using " _lint_env_sled_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-sled.lnt:  environment options for Visual Slick Edit
+
+    If you are using the visual slick edit editor and you wish to invoke
+    PC-lint from that environment then do the following.
+
+    1) create a new project by selecting the new/open option
+       from the project menu.  type lint.vpj at the filename and
+       click on NEW
+    2) edit the project by selecting the edit project option from
+       the project menu source.  In order to set up lint, click on
+       the Edit Settings button.
+
+       a) at the Include directory place either the path or the
+	  include environment variable which contains the path to
+          your header files.  for example
+
+            %(INCLUDE)
+
+          or
+
+	    c:\compiler\include
+
+       b) at compile text box enter the following
+
+	    lint -ic:\lint std.lnt %f
+
+	  Replace "c:\lint" by the appropriate lint directory if
+	  necessary.  Ensure the capture output check box is checked
+	  (recommended); also, ensure the concur process check box
+	  is checked.
+
+    PC-lint is now able to be invoked as you would a compiler;
+    just select the compile option from the project menu.
+
+*/
+
+-"format=%(%f %l %)error %n: (%t -- %m)"     //  Messages will contain
+    //  file information (%f), the line number (%l), the
+	//  message number (%n), message type (%t) and message text (%m).
+    //  Notice that all messages are labeled 'error' but are then
+    //  followed by a type (such as Warning, Info, Note, etc.)
+
+-hF2    //  Make sure we ALWAYS provide file information ('F') and use 2
+	//  lines (line in error plus message).
+
+-width(0) //  don't break messages at any particular width

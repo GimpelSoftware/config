@@ -1,0 +1,71 @@
+/* Date Stamp */ -d"_lint_co_iar78_lnt=co-iar78.lnt modified 22-Dec-2003"
+/* To document usage use: -message( "Using " _lint_co_iar78_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-iar78.lnt
+//    Compiler Options for IAR 78K0 Compiler V2.X
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-iar78.lnt  source-file(s)
+
+	    // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+	    // (no warnings, just syntax errors).  Comment out if you
+	    // are actually linting library headers.  This
+	    // option makes obsolete options of the form -elib(axxx) where
+	    // xxx >= 400 which may be retained for historical reasons.
+
+-sb8	// 8 bit in byte
+-sc1	// char are 1 byte
+-ss2    // short are 2 bytes
+-si2    // integers are 2 bytes
+-sl4    // long are 4 bytes
+-sp2    // pointers are 2 bytes too.
+
+//**** Disable message for symbol
+-"esym(793,macros in module)"//  ANSI limit of 1024 'macros in module' exceeded
+-"esym(950,//)"				 //  Non ANSI reserved word or construct: '//'
+
+//**** Set Options
++fba		//  Bit Addressability name.bit
++fcu		//  char is unsigned	(IAR Option without -c)
++fnc		//  nested Comment		(IAR Option -C)
++fsc		//  String constants are Const char
++fzu		//  size_t is unsigned
+-$			//  $ is an idenifier character
+
+//**** Set Defines
+-d__IAR_SYSTEMS_ICC=1
+-d__STDC__=1
+-d__VER__=222
+-d__TID__=0x9500
+
+
+//**** Add special keywords
++rw(near, saddr, shortar, non-banked, banked, no_init, __no_init, monitor)
+-esym(950,near, saddr, shortar, non-banked, banked, no_init, __no_init, monitor)
+
++rw(_args$, _argv$)
+-esym(950,_args$, _argv$)
+
++rw(_bit)
+-esym(950,_bit)
+-dbit=_bit
+
++rw(_ignore_init)
+-esym(950,_ignore_init)
+-d"sfr=_ignore_init unsigned char"
+-d"sfrp=_ignore_init unsigned short"
+
++rw(_to_brackets)
+-esym(950,_to_brackets)
+-dinterrupt=_to_brackets
+-dusing=_to_brackets
+

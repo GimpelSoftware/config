@@ -1,0 +1,71 @@
+/* Date Stamp */ -d"_lint_env_cw7_lnt=env-cw7.lnt modified 22-Aug-2008"
+/* To document usage use: -message( "Using " _lint_env_cw7_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-cw7.lnt:  environment parameters for codewright version 7.x
+
+    For PC-lint to do a unit checkout from codewright:
+
+    1) Select the PROPERTIES item from the PROJECT menu.
+    2) Select the TOOLS tab from the PROPERTIES dialog.  If you want the
+	   changes you make in this dialog to be stored in your project, select the
+	   appropriate project on the left.  Otherwise, select the <Default
+	   Settings> item to make the settings the default for CodeWright.
+    3) Select CUSTOM from the CATEGORY drop down menu.
+    4) Click on ADD and enter "Lint (unit checkout)" and click OK
+    5) Check SAVE ALL FILES (or at least SAVE CURRENT FILE)
+       and USE VDOS in the COMMAND OPTIONS
+    6) Enter at Command: the following command line
+       or its equivalent depending on the PC-lint directory
+       c:\lint\lint-nt +v -u -ic:\lint std.lnt env-cw7.lnt %b%e
+    7) Select the ERRORS tab from the PROPERTIES dialog
+    8) Set ERROR PARSER 1 to _ErrorInfoDefault.
+    9) Click on OK at the bottom left corner
+
+   To use PC-lint, select the file to be linted and then select LINT from
+   the TOOLS menu.  You can bounce forward through the messages using
+   Ctrl-Shift-Down Arrow, but first you have to either click on the
+   file being linted or select "Search"/"Find Next Error" from the menu.
+   This error navigation will take you through header files depending on
+   the location of the message.
+
+   If you experience difficulties make sure file CWVDOS.VXD is in the
+   Windows system directory which is added during installation.
+
+   To lint an entire project, do a similar sequence of steps with the
+   following modifications.  In step 4 replace "Lint (unit checkout)"
+   with "Lint (project)".  Do not use the "-u" option in step 6.  Rather
+   you can use the following command line:
+
+        c:\lint\lint-nt +v -ic:\lint  std.lnt env-cw7.lnt  project.lnt
+
+   where project.lnt contains a list of all the modules in the project.
+   Please note that you have to prepare this file (project.lnt) yourself
+   and you must place it in the same directory as your other project files.
+   This only works if the current file being edited is in the same directory
+   as project.lnt.  If not all files of the project are in the same directory
+   you will have to use -i options to specify them.
+
+*/
+-"format=%(%f %l:%) Error -> %t %n %m"  // format used by Codewright's default ...
+            // error parser.  Note we prefix every message with "Error"
+            // so they show up during error navigation.
+-width(0)   // don't break lines
+-hF1        // always supply a File name
++e900       // always produce at least one line of output
++ffn        // use Full File Names (i.e. complete path names) in messages
+-maxopen(100) // Temporary stop-gap measure as explained below:
+    // Through the use of CodeWright macros, some source lines were
+    // generated that contained just a trailing new-line and not the
+    // traditional cr-nl.  This wouldn't have been so bad except that
+    // in heavily nested include headers we have to resort to ftell() and
+    // fseek() and we recently discovered these functions do not work
+    // when the file contains nl without the cr-nl.  The down-side is that
+    // you may exhaust the permitted number of open files but that
+    // seems unlikely.  Another work-around in that case is to use +frb

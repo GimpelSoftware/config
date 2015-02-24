@@ -1,0 +1,79 @@
+/* Date Stamp */ -d"_lint_co_mwhc16_lnt=co-mwhc16.lnt modified 31-Mar-2003"
+/* To document usage use: -message( "Using " _lint_co_mwhc16_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//    co-mwhc16.lnt
+//    Compiler Options for Metrowerks HC16 Compiler
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-mwhc16.lnt  source-file(s)
+//
+
+// inherit from basis hc compiler option file common options
+co-mwe_base.lnt
+
+// NOTE: this configuration is for the default compiler settings
+
+//-cwh        // allow for @far and @hex-constant
+-fcu        // plain character is signed
+-sc1        // sizeof(char) is 1
+-ss2        // sizeof(short) is 2
+-si2        // sizeof(int) is 2
+-sl4        // sizeof(long) is 4
+-sll4       // sizeof(long long) is 4
+-sf4        // sizeof(float) is 4
+-sd8        // sizeof(double) is 8
+-sld8       // sizeof(long double)  is 8
+
+-spN2       // sizeof(near pointer) is 2
+-spF3       // sizeof(far pointer) is 3
+
+// ## the following defines are defined internally in the compiler.
+// ## you can create the information below with the compiler option -Ldf
+// ## which produces a header file with the needed information.
+/* resolved by preprocessor: __LINE__ */
+/* resolved by preprocessor: __FILE__ */
+/* resolved by preprocessor: __DATE__ */
+/* resolved by preprocessor: __TIME__ */
+-d__STDC__=0
+//-d__VERSION__ 5008
+//-d__VERSION_STR__ "V-5.0.8"
+-d__BITFIELD_LSBIT_FIRST__=
+-d__BITFIELD_MSBYTE_FIRST__=
+-d__BITFIELD_MSWORD_FIRST__=
+-d__BITFIELD_NO_TYPE_SIZE_REDUCTION__=
+-d__SMALL__=
+-d__HC16__=
+-d__PTR_SIZE_2__=
+-d__FLOAT_IS_DSP__=
+-d__DOUBLE_IS_IEEE64__=
+-d__LONG_DOUBLE_IS_IEEE64__=
+-d__LONG_LONG_DOUBLE_IS_IEEE64__=
+-d__CHAR_IS_SIGNED__=
+-d__CHAR_IS_8BIT__=
+-d__SHORT_IS_16BIT__=
+-d__INT_IS_16BIT__=
+-d__ENUM_IS_16BIT__=
+-d__LONG_IS_32BIT__=
+-d__LONG_LONG_IS_32BIT__=
+-d__SIZE_T_IS_UINT__=
+-d__PTRDIFF_T_IS_INT__=
+-d__ENUM_IS_SIGNED__=
+-d__VTAB_DELTA_IS_16BIT__=
+-d__WCHAR_T_IS_UCHAR__=
+-d__PTRMBR_OFFSET_IS_16BIT__=
+-d__PLAIN_BITFIELD_IS_SIGNED__=
+-d__HIWARE_OBJECT_FILE_FORMAT__=
+-d__PRODUCT_HICROSS_PLUS__=
+-d__HIWARE__=
+-d__ARCHIMEDES__=
+-d__MWERKS__=
+-d__OPTIMIZE_FOR_SIZE__=
+-d__BIG_ENDIAN__=

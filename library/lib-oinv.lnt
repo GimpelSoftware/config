@@ -1,0 +1,105 @@
+/* Date Stamp */ -d"_lint_lib_oinv_lnt=lib-oinv.lnt modified 5-Sep-2002"
+/* To document usage use: -message( "Using " _lint_lib_oinv_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+// lib-oinv.lnt
+// .lnt file for the Silicon Graphics/Template Graphics
+//      Open Inventor Library
+// Contributed by:
+//      Michael S. Scherotter
+//      Tartus Development, Inc.
+// begin Open Inventor.lnt
+
+-emacro(*,SO_*)
+-sem(SoAction::apply,1p)
+
+-sem(SoGroup::SoGroup, 1n > 0)
+-sem(SoGroup::addChild, 1p)
+-sem(SoGroup::insertChild, 1p, 2n >= 0)
+-sem(SoGroup::getChild, r_null, 1n >= 0)
+-sem(SoGroup::findChild, 1p)
+-sem(SoGroup::removeChild, 1n >= 0)
+-sem(SoGroup::removeChild, 1p)
+-sem(SoGroup::replaceChild, 1n >= 0, 2p)
+-sem(SoGroup::replaceChild, 1p, 2p)
+
+-sem(SoNode::getByName,r_null)
+
+-sem(SoFieldContainer::fieldsAreEqual, 1p)
+-sem(SoFieldContainer::copyFieldValues, 1p)
+-sem(SoFieldContainer::set, 1p)
+-sem(SoFieldContainer::getField, r_null)
+-sem(SoFieldContainer::getFieldName, 1p)
+
+-sem(SoField::set, 1p)
+-sem(SoField::connectFrom, 1p)
+-sem(SoField::appendConnection, 1p)
+-sem(SoField::disconnect, 1p)
+
+-sem(SoCamera::viewAll, 1p)
+
+-sem(SoSensor::setFunction, 1p)
+-sem(SoSensor::getFunction, r_null)
+-sem(SoSensor::getData, r_null)
+
+-sem(SoEngine::getOutput, r_null)
+-sem(SoEngine::getOutputName, 1p)
+-sem(SoEngine::getByName, r_null)
+
+-sem(SoBaseKit::getClassNodekitCatalog, r_null)
+-sem(SoBaseKit::getNodekitCatalog, r_null)
+-sem(SoBaseKit::getPart, r_null)
+-sem(SoBaseKit::getPathToPart, r_null)
+-sem(SoBaseKit::set,1p, 2p)
+
+//Repeated include files
+-efile(537,SoWinEnterScope.h)
+-efile(537,SoWinLeaveScope.h)
+
+//Warning: base class destructor for class '*' is not virtual -- Effective C++ #14
+-esym(1509,CIvfApp)
+-esym(1509,CIvfDocument)
+-esym(1509,CIvfServerItem)
+
+//Expected symbol 'operator-=' to be declared for class
+-esym(1754,PiDate)
+-esym(1754,Sb*)
+
+//Note: Base class '*' is not abstract -- More Effective C++ #33
+-esym(1932,CIvfApp)
+-esym(1932,CIvfDocument)
+-esym(1932,CIvfRenderArea)
+-esym(1932,CIvfServerItem)
+-esym(1932,SoBaseKit)
+-esym(1932,SoFloatElement)
+-esym(1932,SoGetBoundingBoxAction)
+-esym(1932,SoGLRenderAction)
+-esym(1932,SoGroup)
+-esym(1932,SoInt32Element)
+-esym(1932,SoNode)
+-esym(1932,SoRayPickAction)
+-esym(1932,SoReplacedElement)
+-esym(1932,SoSceneManager)
+-esym(1932,SoSeparator)
+-esym(1932,SoSeparatorKit)
+-esym(1932,SoSFNode)
+-esym(1932,SoShapeKit)
+-esym(1932,SoSwitch)
+-esym(1932,SoText3)
+-esym(1932,SoTransformerManip)
+-esym(1932,SoWinExaminerViewer)
+-esym(1932,SoWinPlaneViewer)
+-esym(1932,SoWrapperKit)
+-esym(1932,SoWriteAction)
+
+-sem(SoGroup::addChild,custodial(1))
+-sem(SoBaseKit::setPart,custodial(2))
+-sem(SoNodeKitListPart::addChild,custodial(1))
+-sem(SoMFNode::set1Value,custodial(2))
+
+//end Open Inventor.lnt

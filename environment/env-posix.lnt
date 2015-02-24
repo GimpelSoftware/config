@@ -1,0 +1,19 @@
+/* Date Stamp */ -d"_lint_env_posix_lnt=env-posix.lnt modified 12-Jun-2014"
+/* To document usage use: -message( "Using " _lint_env_posix_lnt ) */
+
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+/*
+    env-posix.lnt: Sets the location-reference format in a way
+    consistent with common tools on POSIX (including gcc, clang, grep,
+    etc.):
+        filename:line-number:[column-number:] severity number: text
+ */
+-"format=%f%(:%l%)%(:%c:%) %t %n: %m"
+-width(0)
+-hFb^3

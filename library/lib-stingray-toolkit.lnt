@@ -1,0 +1,63 @@
+/* Date Stamp */ -d"_lint_lib_stingray_toolkit_lnt=lib-stingray-toolkit.lnt modified 5-Sep-2002"
+/* To document usage use: -message( "Using " _lint_lib_stingray_toolkit_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+//lib-stingray-toolkit.lnt
+// .lnt file for the Rogue Wave Stingray Objective Toolkit
+// Contributed by:
+//      Michael S. Scherotter
+//      Tartus Development, Inc.
+
+-emacro(1925,DECLARE_SECWRAPVIEW)
+-emacro(1736,DECLARE_SECWRAPVIEW)
+-emacro(1928,DECLARE_SECWRAPVIEW)
+-emacro(1927,DECLARE_SECWRAPVIEW)
+-emacro(613,DECLARE_SECWRAPVIEW)
+-emacro(1540,DECLARE_SECWRAPVIEW)
+-emacro(732,DECLARE_SECWRAPVIEW)
+-emacro(534,DECLARE_SECWRAPVIEW)
+-emacro(19,DECLARE_SECWRAPVIEW)
+
+-emacro(1773,WND_BUTTON)
+-emacro(651,WND_BUTTON)
+
+//Note -- Base class '*' is not abstract
+-esym(1932,IActiveScriptErrorHandler)
+-esym(1932,SEC3DTabWnd)
+-esym(1932,SECCalculator)
+-esym(1932,SECColorsListBox)
+-esym(1932,SECComboBtn)
+-esym(1932,SECControlBar)
+-esym(1932,SECCustomStatusBar)
+-esym(1932,SECCustomToolBar)
+-esym(1932,SECDocObjectServerItem)
+-esym(1932,SECDropEdit)
+-esym(1932,SECFDIChildWnd)
+-esym(1932,SECFDIFrameWnd)
+-esym(1932,SECFrameWnd)
+-esym(1932,SECListBoxEditor)
+-esym(1932,SECMDIChildWnd)
+-esym(1932,SECMDIFrameWnd)
+-esym(1932,SECOleServerDoc)
+-esym(1932,SECOleServerItem)
+-esym(1932,SECShortcutTable)
+-esym(1932,SEC3DTabControl)
+-esym(1932,SECToolBarManager)
+-esym(1932,SECToolBarSheet)
+-esym(1932,SECToplevelFrame)
+-esym(1932,SECTreeCtrl)
+-esym(1932,SECTreeView)
+-esym(1932,SECWorkbook)
+-esym(1932,SECWorkbookWnd)
+-esym(1932,SECWorksheet)
+-esym(1932,SECWorksheetWnd)
+
+-esym(621,NegotiatePreferredChildNodeRectsTBLR)
+-esym(621,NegotiatePreferredChildNodeRectsLRTB)
+
+-esym(1510,IActiveScriptErrorHandler)

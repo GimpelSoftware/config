@@ -1,0 +1,25 @@
+/* Date Stamp */ -d"_lint_lib_tv_lnt=lib-tv.lnt modified 20-Jun-1996"
+/* To document usage use: -message( "Using " _lint_lib_tv_lnt ) */
+// ---------------------------------------------------------------------
+// This file is provided by Gimpel Software (www.gimpel.com) for use with
+// its products PC-lint and FlexeLint.
+//
+// Redistribution and use of this file, with or without modification, is
+// permitted provided that any such redistribution retains this notice.
+// ---------------------------------------------------------------------
+
+//  lib-tv.lnt
+// Library Options file for Turbo-Vision
+
+
+-elib(569)             // initializes an int (evMessage) with a 0xFF00
+-elib(763)              // some declarations within headers get repeated
+-elib(1706)             // declaration with scope operator
+
+-esym(578,delta)        // parameter name hides member name
+-esym(1038,seek_dir)   // ios::seek_dir assumed for seek_dir
+-esym(1509,THWMouse)    // base class destructor is not virtual
+-esym(1510,TNSSortedCollection,TStreamable,TProgInit,TWindowInit)
+    // these are destructor-less base classes of classes with destructors
+-esym(1512,THWMouse)    // base class destructor is not virtual
+-esym(1730,TEvent)      // uses both 'struct TEvent' and 'class TEvent'

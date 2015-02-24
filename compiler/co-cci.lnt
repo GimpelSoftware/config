@@ -1,0 +1,54 @@
+/* Date Stamp */ -d"_lint_co_cci_lnt=co-cci.lnt modified 8-Apr-2014"
+/* To document usage use: -message( "Using " _lint_co_cci_lnt ) */
+
+//    co-cci.lnt
+//    Compiler Options for the Common C Interface
+
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler when using CCI.  It is used as follows:
+//
+//    lint  co-cci.lnt  source-file(s)
+//
+
+
+// MANIFEST MACROS DEFINED BY THE CCI. If you are using __devicename__, then use -d__devicename__ on the command line.
+
+-d__XC__
+-d__CCI__
+-d__XC8__
+-d__XC16__
+-d__XC32__
+-d__PIC12__
+-d__PIC12E__
+-d__PIC14__
+-d__PIC14E__
+-d__PIC18__
+-d__PIC24E__
+-d__PIC24F__
+-d__PIC24H__
+-d__dsPIC30F__
+-d__dsPIC33E__
+-d__dsPIC33F__
+-d__PIC32MX__
+-d__PIC32MZ__
+
+// Reserved Words. Assigned NULL value +rw() could be used as well
+
+-d__at()=
+-d__section()=
+-d__bank()=
+-d__align()=
+-d__interrupt()=
+-dasm()=
+-d__far=
+-d__near=
+-d__persistent=
+-d__xdata=
+-d__ydata=
+-d__eeprom=
+-d__pack=
+-d__deprecate=
+-e975			//Unrecognized pragma ’Name’ will be ignored, although lint normally ignores #pargma statements.
+
+
++fcu			//Plain char declaration is unsigned char
